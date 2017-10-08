@@ -360,9 +360,9 @@
 	\end{figure}
 	
 	
-	For the network in the Figure \ref{fig:figure1}, I assume that ball radius is 1 and the next candidate removed node is $node_5$. Before the removal, CI value of $node_1$ is $((3-1)+(3-1))*(2-1)=4$. After removal Figure \ref{fig:figure2}, it will be changed to $((2-1)+(2-1))*(2-1)=2$. However, if we follow the saying of decreasing simply by the amount $k − 1$ for the ball radius $l + 1$ (here is 2), CI value of node 1 will be $4-(k-1)=4-(2-1)=3$ . I think \cite{morone2016collective} made this mistake because they might assume there is only one shortest path from $l + 1$ node to the removed node. In fact, from the example we can see that such assumption is not correct, there are 2 shortest paths from $node_1$ to $node 5$ ($node_1$ ,$node_2$ ,$node_5$ and $node_1$ ,$node_3$ ,$node_5$). Fortunately, after scanning their provided code CI\_HEAP, I find that they didn\textquotesingle t use this concept in their implementation and still calculated the CI value of $l + 1$ node in the original formula.
+	For the network in the Figure \ref{fig:figure1}, I assume that ball radius is 1 and the next candidate removed node is $node_5$. Before the removal, CI value of $node_1$ is $((3-1)+(3-1))*(2-1)=4$. After removal in Figure \ref{fig:figure2}, it will be changed to $((2-1)+(2-1))*(2-1)=2$. However, if we follow the saying of decreasing simply by the amount $k − 1$ for the ball radius $l + 1$ (here is 2), CI value of node 1 will be $4-(k-1)=4-(2-1)=3$ . I think \cite{morone2016collective} made this mistake because they might assume there is only one shortest path from $l + 1$ node to the removed node. In fact, from the example we can see that such assumption is not correct, there are 2 shortest paths from $node_1$ to $node 5$ ($node_1$ ,$node_2$ ,$node_5$ and $node_1$ ,$node_3$ ,$node_5$). Fortunately, after scanning their provided code CI\_HEAP, I find that they didn\textquotesingle t use this concept in their implementation and still calculated the CI value of $l + 1$ node in the original formula.
 	
-	This section also describes the experiment on the ComplexCi and CI\_HEAP. Radius of 0,1,2 as input parameters in table \ref{tab:table6} and table \ref{tab:table7} are used to verify the performance on 8 competition datasets both for my c++ implementation ComplexCi and original c code CI\_HEAP. The \textit{minPoint} and \textit{algoEndsPoint} row are also involved into the result to evaluate the performance as brief reference. \textit{minPoint} means the number of removed nodes when ratio of giant component is on 1\% invoking reinsertion . \textit{algoEndsPoint} means the number of removed nodes when ratio of giant component is on 0. \textit{a.k.a.} there is no edge left in the network.
+	This section also describes the experiment on the ComplexCi and CI\_HEAP. Radius of 0,1,2 as input parameters in table \ref{tab:table6} and table \ref{tab:table7} are used to verify the performance on 8 competition datasets both for my c++ implementation ComplexCi and original c code CI\_HEAP. The \textit{minPoint} and \textit{algoEndsPoint} row are also involved into the result to evaluate the performance as brief reference. \textit{minPoint} means the number of removed nodes when ratio of giant component is invoking reinsertion on 1\%. \textit{algoEndsPoint} means the number of removed nodes when ratio of giant component is on 0. \textit{a.k.a.} there is no edge left in the network.
 	
 		
 	
@@ -421,9 +421,11 @@
 				minPoint                         & 301514          & 260041          & 528729          & 190324          & 186407         & 293551         & 89545          & 162603         &                \\ \hline
 				
 				\textbf{Radius 2} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
-				Robustness score                 & 0.2239          & 0.1867          & 0.3777          & 0.1317          & 0.0491         & 0.0966         & 0.1086         & 0.0965         & 1.2709         \\ \hline
-				time                             & 1324s           & 384s            & 1141s           & 225s            & 30390s         & 15s            & 75070s         & 841s           & 75070s         \\ \hline
-				minPoint                         & 301514          & 260041          & 518753          & 170290          & 169461         & 234841         & 85281          & 171161         &                \\ \hline				
+				Robustness score                 & 0.2079&0.1732&0.3446&0.1189&0.0389&0.0418&0.0955&0.0489&1.0696         \\ \hline
+				time                             &  1489s&503s&1417s&316s&30771s&57s&75332s&945s&75332s
+				         \\ \hline
+				minPoint                         & 301514&260041&518753&170290&169461&234841&85281&171161
+				     &                \\ \hline				
 			\end{tabular}
 			\begin{tablenotes}
 				\small
@@ -502,6 +504,77 @@
 		\end{adjustwidth}	
 	\end{table}	
 
+
+
+	asdasdsas
+
+	\begin{table}[]
+	\begin{adjustwidth}{-1cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Using ComplexCi to get time on 8 competition datasets, including CI with reinsertion, without reinsertion and reinsertion excluding CI}
+			\label{tab:table10}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+				\textbf{Radius 0} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				
+				CI with reinsertion time                 & 150s&117s&215s&92s&203s&90s&171s&148s&215s         \\ \hline
+				CI without reinsertion time                             & 21s&16s&20s&14s&20s&5s&19s&19s&20s            \\ \hline
+				reinsertion time excluding CI                         & 129s&101s&195s&78s&183s&85s&152s&129s&195s               \\ \hline
+				
+				\textbf{Radius 1} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				
+				CI with reinsertion time                 & 218s&176s&324s&138s&526s&62s&637s&170s&637s         \\ \hline
+				CI without reinsertion time                             & 115s&87s&134s&65s&359s&12s&470s&59s&470s            \\ \hline
+				reinsertion time excluding CI                         & 103s&89s&190s&73s&167s&50s&167s&111s&167s               \\ \hline					
+				
+				\textbf{Radius 2} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				CI with reinsertion time                 & 1757s&716s&1734s&475s&27555s&57s&43181s&1005s&43181s         \\ \hline
+				CI without reinsertion time                             & 1717s&661s&1533s&441s&27250s&21s&43127s&907s&43127s         \\ \hline
+				reinsertion time excluding CI                         & 40s&55s&201s&34s&305s&36s&54s&98s&54s                \\ \hline				
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}	
+
+
+	\begin{table}[]
+	\begin{adjustwidth}{-1cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Using CI\_HEAP to get time on 8 competition datasets, including CI with reinsertion, without reinsertion and reinsertion excluding CI}
+			\label{tab:table11}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+				\textbf{Radius 0} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				
+				CI with reinsertion time                 & 1184s&156s&307s&117s&708s&95s&498s&169s&708s         \\ \hline
+				CI without reinsertion time                             & 18s&16s&24s&14s&22s&13s&21s&16s&22s            \\ \hline
+				reinsertion time excluding CI                         & 166s&140s&283s&103s&686s&82s&477s&153s&686s               \\ \hline
+				
+				\textbf{Radius 1} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				
+				CI with reinsertion time                 & 195s&159s&333s&119s&604s&68s&727s&179s&727s         \\ \hline
+				CI without reinsertion time                             & 38s&27s&51s&20s&122s&12s&269s&27s&269s            \\ \hline
+				reinsertion time excluding CI                         & 157s&132s&282s&99s&482s&56s&458s&152s&458s               \\ \hline					
+				
+				\textbf{Radius 2} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				CI with reinsertion time                 & 1489s&503s&1417s&316s&30771s&57s&75332s&945s&75332s         \\ \hline
+				CI without reinsertion time                             & 1324s&384s&1141s&225s&30390s&15s&75070s&841s&75070s         \\ \hline
+				reinsertion time excluding CI                         & 165s&119s&276s&91s&381s&42s&262s&104s&262s                \\ \hline				
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}	
+
 	
 	From the experiments in table \ref{tab:table6}, \ref{tab:table7}, \ref{tab:table8}, \ref{tab:table9} , we can observe that:
 	
@@ -513,7 +586,7 @@
 	\end{item}		
 		
 		\begin{item}
-			ComplexCi and CI\_HEAP are able to get the nearly same result in the same internal parameter. But there is still slightly different between them. I think it may be caused by the 2 following reasons:
+			ComplexCi and CI\_HEAP are able to get the nearly same result in the same internal parameter. But there is still slightly different between them. I think it may be caused by the following reasons:
 			
 			\begin{enumerate}
 				\begin{item}
