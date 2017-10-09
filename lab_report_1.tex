@@ -506,7 +506,7 @@
 
 
 
-	In \ref{tab:table10} and \ref{tab:table11}, the cases of "CI with reinsertion time", "CI without reinsertion time" and "reinsertion time excluding CI" are shown for ComplexCi and CI\_HEAP.
+	In \ref{tab:table10} and \ref{tab:table11}, the time of "CI with reinsertion ", "CI without reinsertion" and "reinsertion excluding CI" are shown for ComplexCi and CI\_HEAP. "reinsertion excluding CI" is calculated by "CI with reinsertion " minus "CI without reinsertion"
 
 	\begin{table}[]
 	\begin{adjustwidth}{-1cm}{}		
@@ -614,7 +614,7 @@
 		\end{item}	
 	
 		\begin{item}	
-			ComplexCI is better in speed in the process of reinsertion excluding CI. Using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP.
+			ComplexCI is better in speed in the process of reinsertion excluding running CI. Using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. In table \ref{tab:table10} and table \ref{tab:table11}, 
 		\end{item}	
 	
 		\begin{item}	
@@ -623,18 +623,26 @@
 		
 	\end{enumerate}
 			
-	\subsection{Definitions}
-	\label{definitions}
-	\begin{description}
-		\item[Stoichiometry]
-		The relationship between the relative quantities of substances taking part in a reaction or forming a compound, typically a ratio of whole integers.
-		\item[Atomic mass]
-		The mass of an atom of a chemical element expressed in atomic mass units. It is approximately equivalent to the number of protons and neutrons in the atom (the mass number) or to the average number allowing for the relative abundances of different isotopes. 
-	\end{description} 
+
+	\section{New Reinsertion algorithm}
+
+	\subsection{Algorithm}
+
 	
-	%----------------------------------------------------------------------------------------
-	%	SECTION 2
-	%----------------------------------------------------------------------------------------
+
+
+	 Reinsertion algorithm does not require that the reinserted node joins the clusters of smallest sizes, but only the minimum number of clusters, independently from their sizes.
+
+
+	\begin{tabular}{ll}
+		Mass of empty crucible & \SI{7.28}{\gram}\\
+		Mass of crucible and magnesium before heating & \SI{8.59}{\gram}\\
+		Mass of crucible and magnesium oxide after heating & \SI{9.46}{\gram}\\
+		Balance used & \#4\\
+		Magnesium from sample bottle & \#1
+	\end{tabular}
+
+
 	
 	\section{Experimental Data}
 	
