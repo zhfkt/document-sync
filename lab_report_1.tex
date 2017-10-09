@@ -506,7 +506,7 @@
 
 
 
-	asdasdsas
+	In \ref{tab:table10} and \ref{tab:table11}, the cases of "CI with reinsertion time", "CI without reinsertion time" and "reinsertion time excluding CI" are shown for ComplexCi and CI\_HEAP.
 
 	\begin{table}[]
 	\begin{adjustwidth}{-1cm}{}		
@@ -613,9 +613,8 @@
 			ComplexCI can get better speed than CI\_HEAP without reinsertion in high radius. For the real1 and real3, it can even reduce the spent time in 50\% when radius is 2. I believe the main cause is the implementation of the breadth-first-search (BFS) algorithm because it is the most time-consuming method in CI algorithm after profiling and debugging the code, though I didn\textquotesingle t get the detailed experiment statistic on it. 	
 		\end{item}	
 	
-	
 		\begin{item}	
-			%ComplexCI is better in speed with reinsertion. Disjoinset calculate better% 
+			ComplexCI is better in speed in the process of reinsertion excluding CI. Using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP.
 		\end{item}	
 	
 		\begin{item}	
