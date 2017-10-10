@@ -683,7 +683,7 @@
 	\end{table}
 	 
 	 
-	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that I use the reinsertion joining the clusters of smallest sizes. Because we use the \textit{Rank} techniques to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time.
+	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that I use the reinsertion joining the clusters of smallest sizes. Because the \textit{Rank} techniques is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time.
 	 
 	 In table \ref{tab:table12}, we can see that the robustness score of \textit{New-Reinsertion} is higher than any of the previous mentioned algorithm, even for the case when radius is 0 and CI degenerate to HDA.
 	 
