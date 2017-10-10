@@ -137,7 +137,7 @@
 
 	\section{Experiments on the current algorithms}
 	
-	In this section, tradition algorithms of Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, Degree\cite{wikiCentrality}, PageRank\cite{wikiPageRank} and Collective Influence\cite{morone2015influence}\cite{morone2016collective} will be verified on 8 Datacastle datasets .
+	In this section, tradition algorithms of Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, Degree\cite{wikiCentrality}, PageRank\cite{wikiPageRank} and Collective Influence\cite{morone2015influence}\cite{morone2016collective} will be verified on 8 Datacastle datasets . Datasets are all verified on the default 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz) in 8G memory if I don't mention especially.
 
 
 	\subsection{Betweenness}
@@ -160,7 +160,7 @@
 			\end{tabular}
 				\begin{tablenotes}
 					\small
-					\item\textit{8 datasets are all verified in parallel supported by GraphTools \cite{peixotographtool2014} on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz).}
+					\item\textit{8 datasets are all verified in parallel supported by GraphTools \cite{peixotographtool2014}}
 				\end{tablenotes}			
 	 	\end{threeparttable}
 	\end{adjustwidth}
@@ -189,7 +189,7 @@
 				\end{tabular}
 				\begin{tablenotes}
 					\small
-					\item\textit{8 datasets are all verified in parallel supported by GraphTools \cite{peixotographtool2014} on the 8-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). Please notice that CPU cores in verifying Closeness are 8 cores, double than above CPU cores of machine in \ref{tab:table2} verifying Betweenness}
+					\item\textit{8 datasets are all verified in parallel supported by GraphTools \cite{peixotographtool2014} on the 8-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz) in 16G memory. Please notice that CPU cores in verifying Closeness are 8 cores, double than the default CPU cores of machine mentioned above}
 				\end{tablenotes}			
 			\end{threeparttable}
 		\end{adjustwidth}
@@ -218,7 +218,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{8 datasets are all verified in single thread supported by GraphTools \cite{peixotographtool2014} on the 4-core CPU (Intel Xeon E5-2667v4 Broadwell 3.2 GHz).}
+				\item\textit{8 datasets are all verified in single thread supported by GraphTools \cite{peixotographtool2014} }
 			\end{tablenotes}			
 		\end{threeparttable}
 	\end{adjustwidth}
@@ -248,7 +248,7 @@
 				\end{tabular}
 				\begin{tablenotes}
 					\small
-					\item\textit{8 datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk. Betweenness and Closeness are using multiple CPU cores for one dataset in parallel . However , experiments of HDA including below Collective Influence are using one CPU per each dataset and just start at the same time in concurrent.}
+					\item\textit{8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk. Betweenness and Closeness are using multiple CPU cores for one dataset in parallel . However , experiments of HDA including below Collective Influence are using one CPU per each dataset and just start at the same time in concurrent.}
 				\end{tablenotes}			
 			\end{threeparttable}
 		\end{adjustwidth}
@@ -280,6 +280,7 @@
 	When implementing the reinsertion, they add back a finite fraction of nodes at each step. In their simulations they reinserted 0.2\% of nodes at each step and a fraction smaller than 0.2\% does not change the results.
 	
 	In order to verify the CI on competition dataset results, I utilize 2 implementations of the algorithm. One is provided by the original paper written in c language \cite{ciheapccode}, named CI\_HEAP. The other is newly developed in c++ implementation by myself \cite{zhfkt2017887989} \cite{zhfktgithub}, named ComplexCi . 
+	
 	CI\_HEAP and ComplexCi share the same following internal parameters:
 	
 	
@@ -306,10 +307,11 @@
 	\begin{item}
 		When processing the reinsertion algorithm, CI\_HEAP uses basic statistic method to label the graph connected component indices, which is very time-consuming. Considered that the problem of deciding which node will be reinserted is invoked in several times in the reinsertion algorithm, we can reserve the information for each reinsertion and prepare it for the next decision, other than being forced to label the graph connected component indices of the reconstructing complex network halfway from the beginning.
 		
-		ComplexCi uses disjoint-set data structure to store the graph connected component indices as the new reinsertion algorithm. There are 2 operations involved in the disjoint-set data structure , \textit{Find} and \textit{Union}. For the \textit{Find} operation, we can use it to locate which connected component indices the node belongs to. For the \textit{Union} operation, when the nodes are reinserted into the graph, it can help us to merge the arbitrary nodes into one connected component efficiently based on the previous reconstructed graph. The overall flow of the modified reinsertion algorithm using disjoint-set data structure is shown in algorithm 1
+		ComplexCi uses disjoint-set data structure to store the graph connected component indices as the new reinsertion algorithm. There are 2 operations involved in the disjoint-set data structure , \textit{Find} and \textit{Union}. For the \textit{Find} operation, we can use it to locate which connected component indices the node belongs to. For the \textit{Union} operation, when the nodes are reinserted into the graph, it can help us to merge the arbitrary nodes into one connected component efficiently based on the previous reconstructed graph. The overall flow of the modified reinsertion algorithm using disjoint-set data structure is shown in algorithm \ref{algo:algo1}
 
 		\begin{algorithm}[htb]
 		\caption{ The overall flow of the modified reinsertion algorithm using disjoint-set data structure }
+		\label{algo:algo1}
 		\begin{algorithmic}[1]
 			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
 			
@@ -327,7 +329,8 @@
 			\end{algorithmic}
 		\end{algorithm}
 	
-		Path Compression in \textit{Find} and \textit{Union} by \textit{Rank} are typically the techniques to optimize the performance of disjoint-set data structure\cite{wikiDisjointsetdatastructure}, which are also used here. 
+		Path Compression in \textit{Find} and \textit{Union} by \textit{Rank} are typically the techniques to optimize the performance of disjoint-set data structure\cite{wikiDisjointsetdatastructure}, which are also used here.
+		 
 		From the point of computational complexity, the original reinsertion in CI\_HEAP is $O((n+n)*n) \simeq O(2n^2) \simeq O(n^2)$, which means (label graph connected component indices in n nodes network + find which node is suitable to be reinserted among n nodes) * (repeat n times until all left nodes are consumed). New reinsertion algorithm in ComplexCi is $O((1+n*inverse\_aka(n)+inverse\_aka(n)) *n) \simeq O(1+n+1)*n \simeq O(n^2)$ , which means (no need to label again + search for which node is suitable to be reinserted among n nodes * use \textit{Find} operation of disjoint-set pre node + \textit{Union} the final node and reinsert it into the graph) * (repeat n times until all left nodes are consumed). Using both path compression and \textit{Union} by \textit{Rank} ensures that the amortized time per \textit{Find} and \textit{Union} operation is only $inverse\_aka(n)$ \cite{tarjan1979class}\cite{tarjan1984worst} , which is optimal, where $inverse\_aka(n)$ represents the inverse Ackermann function. This function has a value $inverse\_aka(n)<5$ for any very large value of n that can be written in this physical universe, so the disjoint-set operations take place in essentially constant time\cite{wikiDisjointsetdatastructure}. Compared with the original reinsertion in CI\_HEAP , though the complexity of disjoint-set reinsertion $O(n^2)$ is the same , the longest consuming time of labelling graph connected component indices is eliminated. The new algorithm just introduces the inverse Ackermann function, which is nearly constant time in exchange. There is another advantage of disjoint-set reinsertion that, we can know the number of nodes in the arbitrary connected component in real-time because disjoint-set data structure supports to record the \textit{Rank} value of each connected component. In the below experiment analysis, we can see that the disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP as well.
 
 
@@ -343,18 +346,18 @@
 
 	
 
-	Let\textquotesingle s give an example:
+	Let\textquotesingle s give an example in figure \ref{fig:figure1} and \ref{fig:figure2}
 
 	\begin{figure}[htp]
 		\centering 
-		\includegraphics[width = 7cm]{1.png}
+		\includegraphics[width = 6cm]{1.png}
 		\caption{Example network before removing $node_5$  }
 		\label{fig:figure1}
 	\end{figure}
 
 	\begin{figure}[htp]
 	\centering 
-	\includegraphics[width = 7cm]{2.png}
+	\includegraphics[width = 6cm]{2.png}
 	\caption{Example network before after removing $node_5$  }
 	\label{fig:figure2}
 	\end{figure}
@@ -362,7 +365,7 @@
 	
 	For the network in the Figure \ref{fig:figure1}, I assume that ball radius is 1 and the next candidate removed node is $node_5$. Before the removal, CI value of $node_1$ is $((3-1)+(3-1))*(2-1)=4$. After removal in Figure \ref{fig:figure2}, it will be changed to $((2-1)+(2-1))*(2-1)=2$. However, if we follow the saying of decreasing simply by the amount $k − 1$ for the ball radius $l + 1$ (here is 2), CI value of node 1 will be $4-(k-1)=4-(2-1)=3$ . I think \cite{morone2016collective} made this mistake because they might assume there is only one shortest path from $l + 1$ node to the removed node. In fact, from the example we can see that such assumption is not correct, there are 2 shortest paths from $node_1$ to $node 5$ ($node_1$ ,$node_2$ ,$node_5$ and $node_1$ ,$node_3$ ,$node_5$). Fortunately, after scanning their provided code CI\_HEAP, I find that they didn\textquotesingle t use this concept in their implementation and still calculated the CI value of $l + 1$ node in the original formula.
 	
-	This section also describes the experiment on the ComplexCi and CI\_HEAP. Radius of 0,1,2 as input parameters in table \ref{tab:table6} and table \ref{tab:table7} are used to verify the performance on 8 competition datasets both for my c++ implementation ComplexCi and original c code CI\_HEAP. The \textit{minPoint} and \textit{algoEndsPoint} row are also involved into the result to evaluate the performance as brief reference. \textit{minPoint} means the number of removed nodes when ratio of giant component is invoking reinsertion on 1\%. \textit{algoEndsPoint} means the number of removed nodes when ratio of giant component is on 0. \textit{a.k.a.} there is no edge left in the network.
+	The following part of this section describes the experiments of CI on the ComplexCi and CI\_HEAP. Radius of 0,1,2 as input parameters in table \ref{tab:table6} and table \ref{tab:table7} are used to verify the performance on 8 competition datasets both for my c++ implementation ComplexCi and original c code CI\_HEAP. The \textit{minPoint} and \textit{algoEndsPoint} row are also involved into the result to evaluate the performance as brief reference. \textit{minPoint} means the number of removed nodes when ratio of giant component is invoking reinsertion on 1\%. \textit{algoEndsPoint} means the number of removed nodes when ratio of giant component is on 0. \textit{a.k.a.} there is no edge left in the network.
 	
 		
 	
@@ -395,7 +398,7 @@
 		\end{tabular}
 		\begin{tablenotes}
 			\small
-			\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\item\textit{The time doesn\textquotesingle t cover IO read/write from/to disk.}
 		\end{tablenotes}			
 		\end{threeparttable}
 		\end{adjustwidth}	
@@ -429,7 +432,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 		\end{adjustwidth}	
@@ -466,7 +469,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
 				\end{tablenotes}			
 			\end{threeparttable}
 		\end{adjustwidth}	
@@ -498,7 +501,7 @@
 				\end{tabular}
 				\begin{tablenotes}
 					\small
-					\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+					\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
 				\end{tablenotes}			
 			\end{threeparttable}
 		\end{adjustwidth}	
@@ -509,7 +512,7 @@
 	In \ref{tab:table10} and \ref{tab:table11}, the time of "CI with reinsertion ", "CI without reinsertion" and "reinsertion excluding CI" are shown for ComplexCi and CI\_HEAP. "reinsertion excluding CI" is calculated by "CI with reinsertion " minus "CI without reinsertion"
 
 	\begin{table}[]
-	\begin{adjustwidth}{-1cm}{}		
+	\begin{adjustwidth}{-2cm}{}		
 		\begin{threeparttable}		
 			\centering
 			\caption{Using ComplexCi to get time on 8 competition datasets, including CI with reinsertion, without reinsertion and reinsertion excluding CI}
@@ -535,7 +538,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 	\end{adjustwidth}	
@@ -543,7 +546,7 @@
 
 
 	\begin{table}[]
-	\begin{adjustwidth}{-1cm}{}		
+	\begin{adjustwidth}{-2cm}{}		
 		\begin{threeparttable}		
 			\centering
 			\caption{Using CI\_HEAP to get time on 8 competition datasets, including CI with reinsertion, without reinsertion and reinsertion excluding CI}
@@ -569,14 +572,14 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{Datasets are all verified in concurrent on the 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz). The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 	\end{adjustwidth}	
 	\end{table}	
 
 	
-	From the experiments in table \ref{tab:table6}, \ref{tab:table7}, \ref{tab:table8}, \ref{tab:table9} , we can observe that:
+	From the experiments in table \ref{tab:table6}, \ref{tab:table7}, \ref{tab:table8}, \ref{tab:table9}, \ref{tab:table10}, \ref{tab:table11} , we can observe that:
 	
 	\begin{enumerate}
 		
@@ -614,7 +617,7 @@
 		\end{item}	
 	
 		\begin{item}	
-			ComplexCI is better in speed in the process of reinsertion excluding running CI. Using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. In table \ref{tab:table10} and table \ref{tab:table11}, 
+			In table \ref{tab:table10} and table \ref{tab:table11}, "reinsertion time excluding CI" become shorter according to the higher radius parameter because it will reach the start of reinsertion process earlier. We can also see that ComplexCI is better in speed in the process of reinsertion excluding running CI. It is the evidence that using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. 
 		\end{item}	
 	
 		\begin{item}	
@@ -626,12 +629,80 @@
 
 	\section{New Reinsertion algorithm}
 
-	\subsection{Algorithm}
+	\subsection{Join the clusters of smallest sizes}
 
+	Let\textquotesingle s back to see the above description of reinsertion
 	
-
-
-	 Reinsertion algorithm does not require that the reinserted node joins the clusters of smallest sizes, but only the minimum number of clusters, independently from their sizes.
+	\begin{itquote}
+	
+	Reinsertion adds back one of the removed nodes, which is chosen such that, if once reinserted, it joins the smallest number of clusters. Reinsertion algorithm does not require that the reinserted node joins the clusters of smallest sizes, but only the minimum number of clusters, independently from their sizes. When the node is reinserted reinsertion also restores the edges with its neighbors which are in the network (but not the ones with neighbors not yet reinserted, if any). The procedure is repeated until all the nodes are back in the network. 
+	
+	\end{itquote}	
+	
+	 It is strange that the author of \cite{morone2015influence} \cite{morone2016collective} say "reinsertion algorithm does not require that the reinserted node joins the clusters of smallest sizes, but only the minimum number of clusters, independently from their sizes.". I can not guess why they use the minimum number of clusters. In fact, I tend to believe that the reinserted node joining the clusters of smallest sizes will get better robustness value instead of the one joining only minimum number of clusters. The experiments of modified reinsertion joining the clusters of smallest sizes are shown in the table \ref{tab:table12}. For the convenience, I call the algorithm of modified reinsertion joining the clusters of smallest sizes as \textit{New-Reinsertion} in the following paper.
+	 
+	 
+	\begin{table}[]
+	\begin{adjustwidth}{-1cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Using CI with modified reinsertion joining the clusters of smallest sizes (\textit{New-Reinsertion}) to get robustness value, time, minPoint and algoEndsPoint after applying CI on 8 competition datasets}
+			\label{tab:table12}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+				\textbf{Radius 0} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & 0.2100    & 0.1744    & 0.3603    & 0.1175    & 0.0315    & 0.0069    & 0.0978    & 0.0417    & 1.0403    \\ \hline
+				
+				time                             & 148s      & 126s      & 211s      & 95s       & 163s      & 103s      & 161s      & 137s      & 211s      \\ \hline
+				minPoint                & 322306          & 281709          & 538703          & 200339          & 220297         & 508819         & 93807          & 171159         &                \\ \hline
+				algoEndsPoint           & 583934          & 573704          & 719722          & 534504          & 529690         & 1054742        & 151903         & 343549         &                \\ \hline
+				
+				\textbf{Radius 1} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & 0.2104    & 0.1743    & 0.3656    & 0.1152    & 0.0318    & 0.0046    & 0.0968    & 0.0421    & 1.0409    \\ \hline
+				
+				time                             & 219s      & 177s      & 317s      & 135s      & 487s      & 65s       & 630s      & 163s      & 630s      \\ \hline
+				
+				minPoint                         & 301512          & 260039          & 528727          & 190322          & 186405         & 332689         & 85279          & 162601         &                \\ \hline
+				algoEndsPoint                    & 675627          & 677816          & 779027          & 632197          & 718846         & 1293988        & 186872         & 430115         &                \\ \hline		
+				
+				\textbf{Radius 2} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & 0.2107    & 0.1739    & 0.3585    & 0.1148    & 0.0303    & 0.0039    & 0.0954    & 0.0370    & 1.0246    \\ \hline
+				
+				time                             & 1767s     & 716s      & 1715s     & 478s      & 27488s    & 58s       & 43224s    & 1044s     & 43224s    \\ \hline
+				
+				minPoint                         & 301512          & 260039          & 518751          & 170288          & 169459         & 254409         & 85279          & 171159         &                \\ \hline
+				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}
+	 
+	 
+	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that I use the reinsertion joining the clusters of smallest sizes. Because we use the \textit{Rank} techniques to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time.
+	 
+	 In table \ref{tab:table12}, we can see that the robustness score of \textit{New-Reinsertion} is higher than any of the previous mentioned algorithm, even for the case when radius is 0 and CI degenerate to HDA.
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 
 
 	\begin{tabular}{ll}
