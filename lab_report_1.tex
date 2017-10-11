@@ -373,7 +373,7 @@
 		\begin{adjustwidth}{-1cm}{}		
 		\begin{threeparttable}		
 		\centering
-		\caption{Using ComplexCi to get robustness value, time, minPoint and algoEndsPoint after applying CI on 8 competition datasets with reinsertion}
+		\caption{Using ComplexCi to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets with reinsertion}
 		\label{tab:table6}
 		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 			\hline
@@ -398,7 +398,7 @@
 		\end{tabular}
 		\begin{tablenotes}
 			\small
-			\item\textit{The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 		\end{tablenotes}			
 		\end{threeparttable}
 		\end{adjustwidth}	
@@ -409,7 +409,7 @@
 	\begin{adjustwidth}{-1cm}{}		
 		\begin{threeparttable}		
 			\centering
-			\caption{Using CI\_HEAP to get robustness value, time, minPoint after applying CI on 8 competition datasets with reinsertion}
+			\caption{Using CI\_HEAP to get robustness value, time, minPoint on 8 competition datasets with reinsertion}
 			\label{tab:table7}
 			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 				\hline
@@ -432,7 +432,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 		\end{adjustwidth}	
@@ -444,7 +444,7 @@
 	\begin{adjustwidth}{-1cm}{}		
 		\begin{threeparttable}		
 			\centering
-			\caption{Using ComplexCi to get robustness value, time, minPoint and algoEndsPoint after applying CI on 8 competition datasets without reinsertion}
+			\caption{Using ComplexCi to get robustness value, time, minPoint and algoEndsPoint  on 8 competition datasets without reinsertion}
 			\label{tab:table8}
 			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 				\hline
@@ -469,7 +469,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 				\end{tablenotes}			
 			\end{threeparttable}
 		\end{adjustwidth}	
@@ -480,7 +480,7 @@
 		\begin{adjustwidth}{-1cm}{}		
 			\begin{threeparttable}		
 				\centering
-				\caption{Using CI\_HEAP to get robustness value, time, minPoint after applying CI on 8 competition datasets without reinsertion}
+				\caption{Using CI\_HEAP to get robustness value, time, minPoint on 8 competition datasets without reinsertion}
 				\label{tab:table9}
 				\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 					\hline
@@ -501,7 +501,7 @@
 				\end{tabular}
 				\begin{tablenotes}
 					\small
-					\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+					\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 				\end{tablenotes}			
 			\end{threeparttable}
 		\end{adjustwidth}	
@@ -538,7 +538,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 	\end{adjustwidth}	
@@ -572,7 +572,7 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 	\end{adjustwidth}	
@@ -639,14 +639,14 @@
 	
 	\end{itquote}	
 	
-	 It is strange that the author of \cite{morone2015influence} \cite{morone2016collective} say "reinsertion algorithm does not require that the reinserted node joins the clusters of smallest sizes, but only the minimum number of clusters, independently from their sizes.". I can not guess why they use the minimum number of clusters. In fact, I tend to believe that the reinserted node joining the clusters of smallest sizes will get better robustness value instead of the one joining only minimum number of clusters. The experiments of modified reinsertion joining the clusters of smallest sizes are shown in the table \ref{tab:table12}. For the convenience, I call the algorithm of modified reinsertion joining the clusters of smallest sizes as \textit{New-Reinsertion} in the following paper.
+	 It is strange that the author of \cite{morone2015influence} \cite{morone2016collective} say "reinsertion algorithm does not require that the reinserted node joins the clusters of smallest sizes, but only the minimum number of clusters, independently from their sizes.". I can not guess why they use the minimum number of clusters. In fact, I tend to believe that the reinserted node joining the clusters of smallest sizes will get better robustness value instead of the one joining only minimum number of clusters. The experiments of modified reinsertion joining the clusters of smallest sizes are shown in the table \ref{tab:table12}. For the convenience, I call the algorithm of modified reinsertion joining the clusters of smallest sizes as \textit{New-Reinsertion}, and the algorithm of traditional reinsertion joining the minimum number of clusters as \textit{Traditional-Reinsertion} in the following paper.
 	 
 	 
 	\begin{table}[]
 	\begin{adjustwidth}{-1cm}{}		
 		\begin{threeparttable}		
 			\centering
-			\caption{Using CI with modified reinsertion joining the clusters of smallest sizes (\textit{New-Reinsertion}) to get robustness value, time, minPoint and algoEndsPoint after applying CI on 8 competition datasets}
+			\caption{Using CI with modified reinsertion joining the clusters of smallest sizes (\textit{New-Reinsertion}) to get robustness value, time, minPoint and algoEndsPoint  on 8 competition datasets}
 			\label{tab:table12}
 			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 				\hline
@@ -676,117 +676,92 @@
 			\end{tabular}
 			\begin{tablenotes}
 				\small
-				\item\textit{ The time doesn\textquotesingle t cover IO read/write from/to disk.}
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
 			\end{tablenotes}			
 		\end{threeparttable}
 	\end{adjustwidth}	
 	\end{table}
 	 
 	 
-	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that I use the reinsertion joining the clusters of smallest sizes. Because the \textit{Rank} techniques is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time.
+	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that the reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion} is used. Because the \textit{Rank} technique is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time.
 	 
-	 In table \ref{tab:table12}, we can see that the robustness score of \textit{New-Reinsertion} is higher than any of the previous mentioned algorithm, even for the case when radius is 0 and CI degenerate to HDA.
+	\begin{algorithm}[htb]
+		\caption{ The overall flow of the modified reinsertion algorithm using disjoint-set data structure }
+		\label{algo:algo2}
+		\begin{algorithmic}[1]
+			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
+			
+			\State Then choose the left nodes to reconstruct the network:
+			
+			\begin{algsubstates}
+				\State For each left node i, if once reinserted, \textit{Find} operation will be used to select  the connected component indices of neighborhoods nodes around node i one by one in the disjoint-set data structure. We mark the unique number of connected component indices of neighborhoods nodes around node i as $N_i$.
+				
+				\State Search for the smallest $N_{min}$ value of $Node_{min}$ among all left nodes value $N_i$, we reinsert the corresponding $Node_{min}$ into the network by the \textit{Union} operation. It will update the connected component indices information in the disjoint-set data structure as well.
+				
+				\State As mentioned above, when implementing the reinsertion, we add back a finite fraction of nodes at each step. Here top 0.1\% qualified nodes are added back. Let\textquotesingle s say, if we have 2000 nodes left, reinsertion will add back $0.1\%*2000 = 20$ nodes at each step until all nodes stay in the network again. Hence, we need to choose 20 nodes in the total 2000 candidates by the value $N_{min}$ in the $N_i$ array at each reinsertion . CI\_HEAP uses directly quick sort algorithm O(Nlog N) to sort all nodes and get the top ones. ComplexCi uses c++ internal STL \textit{introselect} algorithm (nth\_element) \cite{cppnthelement}\cite{wikiIntroselect} to pick up top N qualified nodes without sort algorithm, which just uses O(N). Because we don\textquotesingle t need to know the order of the $N_{min}$ array by using full sort and just need to know the top N qualified ones.
+				
+				\State Repeat to search for the next reinsert node in step 2 until all left nodes are consumed.
+			\end{algsubstates}
+		\end{algorithmic}
+	\end{algorithm}
 	 
 	 
 	 
+	 In table \ref{tab:table12}, we can see that the total robustness score of \textit{New-Reinsertion} in radius 2 is better than any of the previous mentioned algorithm. Even the case when radius is 0 and CI degenerate to HDA is able to get the pretty better result 1.0403 in 4 minutes compared with previous best result 1.0701 in nearly 12 hours with \textit{Traditional-Reinsertion}. It means reinsertion plays more important role than CI for getting better robustness though CI in higher radius with \textit{New-Reinsertion} can still help to improve the result and achieve the best score.
 	 
 	 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+	\subsection{For the better result}
 	 
 
-
-	\begin{tabular}{ll}
-		Mass of empty crucible & \SI{7.28}{\gram}\\
-		Mass of crucible and magnesium before heating & \SI{8.59}{\gram}\\
-		Mass of crucible and magnesium oxide after heating & \SI{9.46}{\gram}\\
-		Balance used & \#4\\
-		Magnesium from sample bottle & \#1
-	\end{tabular}
-
-
-	
-	\section{Experimental Data}
-	
-	\begin{tabular}{ll}
-		Mass of empty crucible & \SI{7.28}{\gram}\\
-		Mass of crucible and magnesium before heating & \SI{8.59}{\gram}\\
-		Mass of crucible and magnesium oxide after heating & \SI{9.46}{\gram}\\
-		Balance used & \#4\\
-		Magnesium from sample bottle & \#1
-	\end{tabular}
-	
-	%----------------------------------------------------------------------------------------
-	%	SECTION 3
-	%----------------------------------------------------------------------------------------
-	
-	\section{Sample Calculation}
-	
-	\begin{tabular}{ll}
-		Mass of magnesium metal & = \SI{8.59}{\gram} - \SI{7.28}{\gram}\\
-		& = \SI{1.31}{\gram}\\
-		Mass of magnesium oxide & = \SI{9.46}{\gram} - \SI{7.28}{\gram}\\
-		& = \SI{2.18}{\gram}\\
-		Mass of oxygen & = \SI{2.18}{\gram} - \SI{1.31}{\gram}\\
-		& = \SI{0.87}{\gram}
-	\end{tabular}
-	
-%	Because of this reaction, the required ratio is the atomic weight of magnesium: \SI{16.00}{\gram} of oxygen as experimental mass of Mg: experimental mass of oxygen or $\frac{x}{1.31}=\frac{16}{0.87}$ from which, $M_{\ce{Mg}} = 16.00 \times \frac{1.31}{0.87} = 24.1 = \SI{24}{\gram\per\mole}$ (to two significant figures).
-	
-	%----------------------------------------------------------------------------------------
-	%	SECTION 4
-	%----------------------------------------------------------------------------------------
-	
-	\section{Results and Conclusions}
-	
-	The atomic weight of magnesium is concluded to be \SI{24}{\gram\per\mol}, as determined by the stoichiometry of its chemical combination with oxygen. This result is in agreement with the accepted value.
-	
-	\begin{figure}[h]
-		\begin{center}
-			\includegraphics[width=0.65\textwidth]{placeholder} % Include the image placeholder.png
-			\caption{Figure caption.}
-		\end{center}
-	\end{figure}
-	
-	%----------------------------------------------------------------------------------------
-	%	SECTION 5
-	%----------------------------------------------------------------------------------------
-	
-	\section{Discussion of Experimental Uncertainty}
-	
-	The accepted value (periodic table) is \SI{24.3}{\gram\per\mole} \cite{Smith:2012qr}. The percentage discrepancy between the accepted value and the result obtained here is 1.3\%. Because only a single measurement was made, it is not possible to calculate an estimated standard deviation.
-	
-	The most obvious source of experimental uncertainty is the limited precision of the balance. Other potential sources of experimental uncertainty are: the reaction might not be complete; if not enough time was allowed for total oxidation, less than complete oxidation of the magnesium might have, in part, reacted with nitrogen in the air (incorrect reaction); the magnesium oxide might have absorbed water from the air, and thus weigh ``too much." Because the result obtained is close to the accepted value it is possible that some of these experimental uncertainties have fortuitously cancelled one another.
-	
-	%----------------------------------------------------------------------------------------
-	%	SECTION 6
-	%----------------------------------------------------------------------------------------
-	
-	\section{Answers to Definitions}
-	
+	In order to get better robustness score and high rank on the leaderboard of competition, more strict internal parameters are used. In detail , there are 2 internal parameters \textit{computeComponentInterval} and \textit{reinsertEachStep} changed here.
+		
 	\begin{enumerate}
 		\begin{item}
-			The \emph{atomic weight of an element} is the relative weight of one of its atoms compared to C-12 with a weight of 12.0000000$\ldots$, hydrogen with a weight of 1.008, to oxygen with a weight of 16.00. Atomic weight is also the average weight of all the atoms of that element as they occur in nature.
+			\textit{computeComponentInterval}: It means the interval to calculate giant component when complex network collapses. The original is 1 percent of the size of complete network. For the more strict parameter , the value is re-scaled to 200 if the original is larger than 200. It will revoke the start of reinsertion at certain value more precisely.
 		\end{item}
 		\begin{item}
-			The \emph{units of atomic weight} are two-fold, with an identical numerical value. They are g/mole of atoms (or just g/mol) or amu/atom.
-		\end{item}
-		\begin{item}
-			\emph{Percentage discrepancy} between an accepted (literature) value and an experimental value is
-			\begin{equation*}
-				\frac{\mathrm{experimental\;result} - \mathrm{accepted\;result}}{\mathrm{accepted\;result}}
-			\end{equation*}
-		\end{item}
-	\end{enumerate}
+			\textit{reinsertEachStep}: It means the batch size of nodes reinserted into the network per updating the graph. The original is 1 per mille of the size of complete network. For the more strict parameter , the value is re-scaled to 20 if the original is larger than 20, which will decrease the number of reinserted nodes at each reinsertion step.
+		\end{item}		
+		
+	\end{enumerate}			
+		
+	The \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} in radius 2 are shown in the table \ref{tab:table13} after applying more strict internal parameters of \textit{computeComponentInterval} and \textit{reinsertEachStep}. For most provided datasets, \textit{New-Reinsertion} will get the better result only except for model3. It is still uncertain why robustness score of model3 becomes worse when using \textit{New-Reinsertion} but I think it may be related with the structure of the model3.
+	 
+	 
+	\begin{table}[]
+	\begin{adjustwidth}{-2cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Using CI in radius 2 of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} after applying more strict internal parameters to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets}
+			\label{tab:table13}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline
+					
+				\textbf{Traditional-Reinsertion} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & 0.2074          & 0.1725          & \textbf{0.3441}          & 0.1193          & 0.0384         & 0.0392         & 0.0956         & 0.0497         & 1.0662         \\ \hline
+				time                             & 6469s           & 4762s           & 10320s          & 2993s           & 35680s         & 2657s          & 46928s         & 4772s          & 46928s         \\ \hline
+				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
+				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				\textbf{New-Reinsertion}         & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & \textbf{0.2072}          & \textbf{0.1710}          & 0.3596          & \textbf{0.1122}          & \textbf{0.0289}         & \textbf{0.0042}         & \textbf{0.0953}         & \textbf{0.0365}         & 1.0148         \\ \hline
+				time                             & 6529s           & 4823s           & 9874s           & 2953s           & 33599s         & 2728s          & 46701s         & 4807s          & 46701s         \\ \hline
+				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
+				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &           \\ \hline    
+
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}
+	 
+	 
+	 
+
+	 
 	
 	%----------------------------------------------------------------------------------------
 	%	BIBLIOGRAPHY
