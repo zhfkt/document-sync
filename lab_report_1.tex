@@ -690,6 +690,8 @@
 	 
 	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that the reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion} is used. Because the \textit{Rank} technique is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time. Algorithm of \textit{New-Reinsertion} are shown in algorithm \ref{algo:algo2} and codes are based on the ComplexCi
 	 
+	 <kernel mentioned> involved. step 2.c different and as kernel
+	 
 	\begin{algorithm}[htb]
 	\caption{ The algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion} }
 	\label{algo:algo2}
@@ -770,13 +772,13 @@
 	 
 	\begin{enumerate}
 	\begin{item}
-		\textit{lowerImportanceFirst}:
+		\textit{lowerImportanceFirst}: When reinsertion adds back the node one by one or a finite fraction of nodes in the batch operation, it will also meet with the same score for several nodes. Reinsertion will add back nodes of the same score randomly. For the strategy \textit{lowerImportanceFirst}, it chooses the nodes which are the same score ranking behind in the sequence of node importance with high priority when we apply reinsertion. a.k.a. Reinsert the node of the same score according to the order before reinsertion as much as possible. Here the score of the $node_i$ refers to the $M_i$ in algorithm \ref{algo:algo1} and $S_1$ in algorithm \ref{algo:algo2}. <kernel mentioned> The experiments in the table \ref{tab:table14} show that this heuristic idea is not obvious in the performance.
 		
-		It chooses the nodes which are the same score ranked behind in the sequence of node importance with high priority when we apply reinsertion. a.k.a. Reinsert the node according to the order before reinsertion as much as possible
+		<{\table14}>
 	
 	\end{item}
 	\begin{item}
-		When reinsertion adds back the node one by one or a finite fraction of nodes in the batch operation, it will also meet with the same score for several nodes, which is similar with the above situation. Reinsertion will add back nodes of the same score randomly. Different reinsertion choice for the same score node will lead to the different robustness values finally as well.
+
 	\end{item}		
 	\begin{item}
 
