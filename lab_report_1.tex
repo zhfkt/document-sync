@@ -311,7 +311,7 @@
 		
 		ComplexCi uses disjoint-set data structure to store the graph connected component indices as the new reinsertion algorithm. There are 2 operations involved in the disjoint-set data structure , \textit{Find} and \textit{Union}. For the \textit{Find} operation, we can use it to locate which connected component indices the node belongs to. For the \textit{Union} operation, when the nodes are reinserted into the graph, it can help us to merge the arbitrary nodes into one connected component efficiently based on the previous reconstructed graph. The overall flow of the modified reinsertion algorithm using disjoint-set data structure is shown in algorithm \ref{algo:algo1}
 
-		\begin{algorithm}[htb]
+		\begin{algorithm}[!htbp]
 		\caption{  The overall flow of the modified reinsertion algorithm using disjoint-set data structure z }
 		\label{algo:algo1}
 		\begin{algorithmic}[1]
@@ -688,11 +688,9 @@
 	\end{table}
 	 
 	 
-	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that the reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion} is used. Because the \textit{Rank} technique is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time. Algorithm of \textit{New-Reinsertion} are shown in algorithm \ref{algo:algo2} and codes are based on the ComplexCi
+	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that the reinsertion joining clusters of smallest sizes \textit{New-Reinsertion} is used. Because the \textit{Rank} technique is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time. Algorithm of \textit{New-Reinsertion} are shown in algorithm \ref{algo:algo2} and codes are based on the ComplexCi
 	 
-	 <kernel mentioned> involved. step 2.c different and as kernel
-	 
-	\begin{algorithm}[htb]
+	\begin{algorithm}[!htbp]
 	\caption{ The algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion} }
 	\label{algo:algo2}
 	\begin{algorithmic}[1]
@@ -714,8 +712,51 @@
 	\end{algorithmic}
 	\end{algorithm}
 	 
-	 
-	 
+	
+	The only difference of algorithm \ref{algo:algo1} and algorithm \ref{algo:algo2} is Step 2c . Although algorithm \ref{algo:algo1} and algorithm \ref{algo:algo2} are using different ways but their intentions both are getting the score which can represent the $node_i$. So we can replace the Step 2c with the calculation kernel as more generic framework. 
+	
+	
+	\begin{algorithm}[!htbp]
+	\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework }
+	\label{algo:algo3}
+	\begin{algorithmic}[1]
+		\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
+		
+		\State Then choose the left nodes to reconstruct the network:
+		
+		\begin{algsubstates}
+			\State For each left $node_i$ , if once reinserted, \textit{Find} operation will be used to select the connected component indices of neighborhoods nodes around node i one by one in the disjoint-set data structure, which is named as $C_{i1}$, $C_{i2}$ ... , $C_{in}$. 
+			
+			\State Then we need to check whether there are the duplicated connected component indices in the set $C_i$ and make item in the set $C_i$ to be unique. The new unique set will be $UC_{i1}$, $UC_{i2}$ ... , $UC_{im}$.  
+			
+			\State Getting the score $J_i$ by specific calculation kernel which can represent the $node_i$.
+			
+			\State Search for the smallest $J_{min}$ value of $Node_{min}$ among all left nodes value $J_i$. We will reinsert the corresponding $Node_{min}$ into the network by the \textit{Union} operation, which will update the connected component indices information in the disjoint-set data structure. As mentioned above, when implementing the reinsertion,  the finite fraction of nodes are added back at each step.
+			
+			\State Repeat to search for the next reinsert node in step 2 until all left nodes are consumed.
+		\end{algsubstates}
+	\end{algorithmic}
+	\end{algorithm}	
+
+	\begin{algorithm}[!htbp]
+		\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework }
+		\label{algo:algo4}
+		\begin{algorithmic}[1]
+			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
+		\end{algorithmic}
+	\end{algorithm}	
+
+	\begin{algorithm}[!htbp]
+		\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework }
+		\label{algo:algo5}
+		\begin{algorithmic}[1]
+			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
+		\end{algorithmic}
+	\end{algorithm}	
+
+	
+	
+	
 	 In table \ref{tab:table12}, we can see that the total robustness score of \textit{New-Reinsertion} in radius 2 is better than any of the previous mentioned algorithm. Even the case when radius is 0 and CI degenerate to HDA is able to get the pretty better result 1.0403 in 4 minutes compared with previous best result 1.0701 in nearly 12 hours with \textit{Traditional-Reinsertion}. It means reinsertion plays more important role than CI for getting better robustness , though CI in higher radius with \textit{New-Reinsertion} can still help to improve the result and achieve the best score.
 	 
 	 
