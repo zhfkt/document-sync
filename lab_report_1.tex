@@ -560,7 +560,7 @@
 				\hline
 				\textbf{Radius 0} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
 				
-				CI with reinsertion time                 & 1184s&156s&307s&117s&708s&95s&498s&169s&708s         \\ \hline
+				CI with reinsertion time                 & 184s&156s&307s&117s&708s&95s&498s&169s&708s         \\ \hline
 				CI without reinsertion time                             & 18s&16s&24s&14s&22s&13s&21s&16s&22s            \\ \hline
 				reinsertion time excluding CI                         & 166s&140s&283s&103s&686s&82s&477s&153s&686s               \\ \hline
 				
@@ -622,7 +622,7 @@
 		\end{item}	
 	
 		\begin{item}	
-			In table \ref{tab:table10} and table \ref{tab:table11}, "reinsertion time excluding CI" become shorter according to the higher radius parameter because it will reach the start of reinsertion process earlier. We can also see that ComplexCI is better in speed in the process of reinsertion excluding running CI. It is the evidence that using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. 
+			In table \ref{tab:table10} and table \ref{tab:table11}, \textit{reinsertion time excluding CI} become shorter according to the higher radius parameter because it will reach the start of reinsertion process earlier. We can also see that ComplexCI is better in speed in the process of reinsertion excluding running CI. It is the evidence that using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. 
 		\end{item}	
 	
 		\begin{item}	
@@ -874,37 +874,42 @@
 	\end{adjustwidth}	
 	\end{table}			
 		
-			 
-	 
-	 
-	 \subsection{Tune parameters}
-	 
-	 
 	 Currently we get the outstanding \textit{Str-LOW-MULTI-TRAD-Score} 0.9972 in table \ref{tab:table14}, which utilizes 
-	 
+
 	\begin{enumerate}
-	
+		
 		\begin{item}	
 			Collective Influence in radius 2
 		\end{item}
-	
+		
 		\begin{item}	
 			Generic reinsertion framework (GRF) in algorithm \ref{algo:algo3}. 
 		\end{item}	
 		
 		\begin{item}
-			Model3 in \textit{Str-Trad-Reinsertion} kernel and all the other datasets except Model3 in \textit{Str-New-reinsertion} kernel with strict internal parameters
+			Model3 using \textit{Trad-Reinsertion} kernel in algorithm \ref{algo:algo4} with strict internal parameters \textit{Str-Trad-Reinsertion}
 		\end{item}
-	
+		
+		
+		\begin{item}
+			All the other datasets except Model3 using \textit{multiplyKernel-Reinsertion} kernel in algorithm \ref{algo:algo6}  with strict internal parameters \textit{str-multiplyKernel-Reinsertion}
+		\end{item}	
+		
 		\begin{item}
 			Strategy \textit{lowerImportanceFirst}
 		\end{item}	
-	
+		
 	\end{enumerate}	
+	
+	
+	
+	All techniques in this paper are all completed to be descried detailedly.		 
 	 
 	 
+	 \subsection{Tune parameters}
 	 
-	 All techniques in this paper are all completed to be descried detailedly. Next we need to tune input parameters to see whether we can get the better result. There are 2 adjustable numeric input parameters in ComplexCi, including \textit{biggestComponentEndThreshold} and \textit{updateBatch}
+	 
+	 Next we need to tune input parameters to see whether we can get the better result. There are 2 adjustable numeric input parameters in ComplexCi, including \textit{biggestComponentEndThreshold} and \textit{updateBatch}
 	 
 	 
 	 
