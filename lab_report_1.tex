@@ -88,7 +88,7 @@
 	
 	% If you wish to include an abstract, uncomment the lines below
 	\begin{abstract}
-		This solution paper is to demonstrate the solution of algorithm in identifying vital nodes in complex networks for Datacastle Master Competition . Compared with traditional algorithms including Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, PageRank\cite{wikiPageRank}, Degree\cite{wikiCentrality} and Collective Influence\cite{morone2015influence}\cite{morone2016collective}, the new proposed algorithm of reconstructing collapsed complex network to find most influential nodes is able to achieve the better performance on the 8 competition datasets in terms of robustness\cite{schneider2011mitigation} and speed. The new implementation by c++ of the popular algorithm Collective Influence (CI) is introduced as well. All code in the paper can be found at the link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub} \cite{zhfkt2017887989}
+		This solution paper is to demonstrate the solution of algorithm in identifying vital nodes in complex networks for Datacastle Master Competition . Compared with traditional algorithms including Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, PageRank\cite{wikiPageRank}, Degree\cite{wikiCentrality} and Collective Influence\cite{morone2015influence}\cite{morone2016collective}, the new proposed algorithm of reconstructing collapsed complex network to find most influential nodes is able to achieve the better performance on the 8 competition datasets in terms of robustness\cite{schneider2011mitigation} and speed. The new implementation by c++ of the popular algorithm Collective Influence (CI) is introduced as well, named ComplexCi. All code in the paper can be found at the link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub} \cite{zhfkt2017887989}
 	\end{abstract}
 
 	\section{Introduction}
@@ -820,7 +820,7 @@
 		
 	\begin{item}
 			
-		\textit{multiplyKernel-Reinsertion}: There have already been 2 calculation kernels purposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiplyKernel-Reinsertion} is designed in \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Because model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
+		\textit{multiplyKernel-Reinsertion}: There have already been 2 calculation kernels purposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiplyKernel-Reinsertion} is designed in algorithm \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Because model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
 
 		\begin{algorithm}[!htbp]
 			\caption{ \textit{multiplyKernel-Reinsertion} to get the score $J_i$ representing the $node_i$. }
@@ -925,7 +925,7 @@
 
 	\end{enumerate}	
 	 
-	 
+	current updateBatch default is 1 / biggestComponentEndThreshold is 0.01 , 0 is all / grid search
 	 
 	 
 	 
