@@ -312,7 +312,7 @@
 		ComplexCi uses disjoint-set data structure to store the graph connected component indices as the new reinsertion algorithm. There are 2 operations involved in the disjoint-set data structure , \textit{Find} and \textit{Union}. For the \textit{Find} operation, we can use it to locate which connected component indices the node belongs to. For the \textit{Union} operation, when the nodes are reinserted into the graph, it can help us to merge the arbitrary nodes into one connected component efficiently based on the previous reconstructed graph. The overall flow of the modified reinsertion algorithm using disjoint-set data structure is shown in algorithm \ref{algo:algo1}
 
 		\begin{algorithm}[!htbp]
-		\caption{  The overall flow of the modified reinsertion algorithm using disjoint-set data structure z }
+		\caption{ \textit{Traditional-Reinsertion}: The overall flow of the modified reinsertion algorithm using disjoint-set data structure}
 		\label{algo:algo1}
 		\begin{algorithmic}[1]
 			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
@@ -713,11 +713,11 @@
 	\end{algorithm}
 	 
 	
-	The only difference of algorithm \ref{algo:algo1} and algorithm \ref{algo:algo2} is Step 2c . Although algorithm \ref{algo:algo1} and algorithm \ref{algo:algo2} are using different ways but their intentions both are getting the score which can represent the $node_i$. So we can replace the Step 2c with the calculation kernel as more generic framework. 
+	The only difference of algorithm \ref{algo:algo1} and algorithm \ref{algo:algo2} is Step 2c. Although algorithm \ref{algo:algo1} and algorithm \ref{algo:algo2} are using different ways but their intentions both are getting the score which can represent the $node_i$. We can replace the Step 2c with the calculation kernel as more generic framework in algorithm \ref{algo:algo3}. Therefore, algorithm \ref{algo:algo3} is extracted as general ways to describe the process of reinsertion. It is certain that different kernel will lead to different behaviour in reinsertion combining with generic reinsertion framework. Algorithm \ref{algo:algo3} + algorithm \ref{algo:algo4} will get algorithm \ref{algo:algo1} as \textit{Traditional-Reinsertion}. Algorithm \ref{algo:algo3} + algorithm \ref{algo:algo5} will get algorithm \ref{algo:algo2} as \textit{New-Reinsertion}. 
 	
 	
 	\begin{algorithm}[!htbp]
-	\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework }
+	\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework: Generic reinsertion framework (GRF) }
 	\label{algo:algo3}
 	\begin{algorithmic}[1]
 		\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
@@ -738,19 +738,24 @@
 	\end{algorithmic}
 	\end{algorithm}	
 
+
+
+
 	\begin{algorithm}[!htbp]
-		\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework }
+		\caption{ \textit{Traditional-Reinsertion} kernel to get the score $J_i$ representing the $node_i$. }
 		\label{algo:algo4}
 		\begin{algorithmic}[1]
-			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
+			\State Get the count of set $UC_{i}$ as $M_i$.
+			\State return $M_i$ as $J_i$ 
 		\end{algorithmic}
 	\end{algorithm}	
 
 	\begin{algorithm}[!htbp]
-		\caption{ The algorithm of reinsertion with the calculation kernel in more generic framework }
+		\caption{ \textit{New-Reinsertion} kernel to get the score $J_i$ representing the $node_i$. }
 		\label{algo:algo5}
 		\begin{algorithmic}[1]
-			\State We have the initial collapsed complex network and build the corresponding disjoint-set data structure.
+			\State Get the connected component size information $rank[UC_{i}]$ from \textit{rank} array due to the fact that each cluster size is stored in it. Sum up all $rank[UC_{i1}]$, $rank[UC_{i2}]$, ... $rank[UC_{im}]$ as $S_i$ to get the clusters sizes which will be joined if the $node_i$ is reinserted.
+			\State return $S_i$ as $J_i$ 
 		\end{algorithmic}
 	\end{algorithm}	
 
@@ -776,7 +781,7 @@
 		
 	\end{enumerate}			
 		
-	The \textit{Str-New-Reinsertion} and \textit{Str-Trad-Reinsertion} in radius 2 are shown in the table \ref{tab:table13} after applying more strict internal parameters  \textit{computeComponentInterval} and \textit{reinsertEachStep} of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion}. For most provided datasets, \textit{Str-New-Reinsertion} will get the better result. The only exception is the network model3. It is still uncertain why robustness score of model3 becomes worse when using \textit{Str-Trad-Reinsertion} but I guess it may be related with the structure of the model3. The better scores of \textit{Str-New-Reinsertion} and \textit{Str-Trad-Reinsertion} are organized as selective score shown at the bottom of table \ref{tab:table13}.
+	The \textit{Str-New-Reinsertion} and \textit{Str-Trad-Reinsertion} in radius 2 are shown in the table \ref{tab:table13} after applying more strict internal parameters \textit{computeComponentInterval} and \textit{reinsertEachStep}. Compared with \textit{New-Reinsertion} and \textit{Trad-Reinsertion}, the less interval of \textit{computeComponentInterval} and \textit{reinsertEachStep} will bring benefit to the better total robustness. For most each provided datasets, \textit{Str-New-Reinsertion} will get the better result but the only exception is the network model3. The better scores of \textit{Str-New-Reinsertion} and \textit{Str-Trad-Reinsertion} are organized as selective score shown at the bottom of table \ref{tab:table13}.
 	 
 	 
 	\begin{table}[!htbp]
@@ -809,25 +814,118 @@
 	\end{adjustwidth}	
 	\end{table}
 	 
-	 Other enhanced reinsertion algorithms are also tried to get the better score.
+	Other enhanced reinsertion algorithms are also tried to get the better score.
 	 
 	\begin{enumerate}
-	\begin{item}
-		\textit{lowerImportanceFirst}: When reinsertion adds back the node one by one or a finite fraction of nodes in the batch operation, it will also meet with the same score for several nodes. Reinsertion will add back nodes of the same score randomly. For the strategy \textit{lowerImportanceFirst}, it chooses the nodes which are the same score ranking behind in the sequence of node importance with high priority when we apply reinsertion. a.k.a. Reinsert the node of the same score according to the order before reinsertion as much as possible. Here the score of the $node_i$ refers to the $M_i$ in algorithm \ref{algo:algo1} and $S_1$ in algorithm \ref{algo:algo2}. <kernel mentioned> The experiments in the table \ref{tab:table14} show that this heuristic idea is not obvious in the performance.
 		
-		<{\table14}>
-	
+	\begin{item}
+			
+		\textit{multiplyKernel-Reinsertion}: There have already been 2 calculation kernels purposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiplyKernel-Reinsertion} is designed in \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Because model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
+
+		\begin{algorithm}[!htbp]
+			\caption{ \textit{multiplyKernel-Reinsertion} to get the score $J_i$ representing the $node_i$. }
+			\label{algo:algo6}
+			\begin{algorithmic}[1]
+				\State Get the connected component size information $rank[UC_{i}]$ from \textit{rank} array due to the fact that each cluster size is stored in it. Sum up all $rank[UC_{i1}]$, $rank[UC_{i2}]$, ... $rank[UC_{im}]$ as $S_i$ to get the clusters sizes which will be joined if the $node_i$ is reinserted.
+				\State Get the count of set $UC_{i}$ as $M_i$.			
+				\State return $S_i*M_i$ as $J_i$ 
+			\end{algorithmic}
+		\end{algorithm}	
+		
+		In table \ref{tab:table14}, \textit{str-multiplyKernel-Reinsertion} with strict internal parameters of \textit{multiplyKernel-Reinsertion} shows that , though it will get total score 1.0115 better than \textit{Str-New-Reinsertion} 1.0148, the model3 network is still nearly the same and no further progress as in the \textit{Str-Traditional-Reinsertion}. Selective value in choosing better score of \textit{Str-Traditional-Reinsertion} and \textit{str-multiplyKernel-Reinsertion} is 0.9972 and it is just slightly better than 0.9993 in \ref{tab:table13}
+
 	\end{item}
+		
 	\begin{item}
-
-	\end{item}		
-	\begin{item}
-
-	\end{item}			
+		\textit{lowerImportanceFirst}: When reinsertion adds back the node one by one or a finite fraction of nodes in the batch operation, it will meet with the same score for several nodes. Reinsertion will add back nodes of the same score randomly. For the strategy \textit{lowerImportanceFirst}, it chooses the nodes which are the same score ranking behind in the sequence of node importance with high priority when we apply reinsertion. a.k.a. Reinsert the node of the same score according to the order before reinsertion as much as possible. Here the score of $node_i$ refers to the $J_i$ in generic framework (GRF) algorithm \ref{algo:algo3}. However, the experiments of \textit{Str-LOW-MULTI-TRAD-Score} in the table \ref{tab:table14} with \textit{lowerImportanceFirst} on \textit{Selective Score} show that this heuristic idea is not obvious in the performance. In fact, it is nearly no use. I think it may caused that the same score for several nodes are not common in the reinsertion process.
+	\end{item}
+	\end{enumerate}	
 	
-	\end{enumerate}			 
+		\begin{table}[!htbp]
+		\begin{adjustwidth}{-3cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Using CI in radius 2 of \textit{multiplyKernel-Reinsertion} after applying more strict internal parameters to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets , compared with \textit{Str-Trad-Reinsertion}. Statistic of \textit{Str-LOW-MULTI-TRAD-Score} is applied with \textit{lowerImportanceFirst} on \textit{Selective Score} }
+			\label{tab:table14}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline		
+				
+				
+				\textbf{Str-Trad-Reinsertion} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & 0.2074          & 0.1725          & \textbf{0.3441}          & 0.1193          & 0.0384         & 0.0392         & 0.0956         & 0.0497         & 1.0662         \\ \hline
+				time                             & 6469s           & 4762s           & 10320s          & 2993s           & 35680s         & 2657s          & 46928s         & 4772s          & 46928s         \\ \hline
+				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
+				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				
+				\textbf{Str-multiplyKernel-Reinsertion}         & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & \textbf{0.2060}&\textbf{0.1700}&0.3585&\textbf{0.1115}&\textbf{0.0310}&\textbf{0.0040}&\textbf{0.0939}&\textbf{0.0367}&1.0115         \\ \hline
+				time                             & 6545s&4825s&9818s&2970s&34518s&2662s&46859s&4871s&46859s         \\ \hline
+				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
+				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &           \\ \hline \hline  
+				\textbf{Selective Score}                 & \textbf{0.2060}&\textbf{0.1700}&\textbf{0.3441}&\textbf{0.1115}&\textbf{0.0310}&\textbf{0.0040}&\textbf{0.0939}&\textbf{0.0367}&\textbf{0.9972}    \\ \hline 			
+				\textbf{Str-LOW-MULTI-TRAD-Score}                 & \textbf{0.2063}&\textbf{0.1700}&\textbf{0.3442}&\textbf{0.1115}&\textbf{0.0307}&\textbf{0.0036}&\textbf{0.0940}&\textbf{0.0368}&\textbf{0.9972}   \\ \hline 						
+				
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}			
+		
+			 
 	 
 	 
+	 \subsection{Tune parameters}
+	 
+	 
+	 Currently we get the outstanding \textit{Str-LOW-MULTI-TRAD-Score} 0.9972 in table \ref{tab:table14}, which utilizes 
+	 
+	\begin{enumerate}
+	
+		\begin{item}	
+			Collective Influence in radius 2
+		\end{item}
+	
+		\begin{item}	
+			Generic reinsertion framework (GRF) in algorithm \ref{algo:algo3}. 
+		\end{item}	
+		
+		\begin{item}
+			Model3 in \textit{Str-Trad-Reinsertion} kernel and all the other datasets except Model3 in \textit{Str-New-reinsertion} kernel with strict internal parameters
+		\end{item}
+	
+		\begin{item}
+			Strategy \textit{lowerImportanceFirst}
+		\end{item}	
+	
+	\end{enumerate}	
+	 
+	 
+	 
+	 All techniques in this paper are all completed to be descried detailedly. Next we need to tune input parameters to see whether we can get the better result. There are 2 adjustable numeric input parameters in ComplexCi, including \textit{biggestComponentEndThreshold} and \textit{updateBatch}
+	 
+	 
+	 
+	\begin{enumerate}
+	
+		\begin{item}	
+			\textit{biggestComponentEndThreshold}: Complex network collapses to the certain giant component ratio where the reinsert algorithm starts in the generic reinsertion framework (GRF). 
+		\end{item}
+		
+		\begin{item}	
+			\textit{updateBatch}: Batch size of deleted points per updating Collective Influence value. Users can determine the batch size of deleting nodes in ComplexCi per updating CI values when the Complex Network collapses
+		\end{item}	
+
+	\end{enumerate}	
+	 
+	 
+	 
+	 
+	 
+	 
+
 
 
 	 
