@@ -41,7 +41,7 @@
 
 
 
-
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  
 \renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
 
 \newcounter{algsubstate}
@@ -52,6 +52,8 @@
 		\stepcounter{algsubstate}%
 		\Statex {\footnotesize\thealgsubstate:}\space}}
 {}
+
+
 
 
 \newenvironment{itquote}
@@ -98,7 +100,7 @@
 	
 	There are several traditional algorithms such as Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, PageRank\cite{wikiPageRank}, Degree\cite{wikiCentrality} and Collective Influence\cite{morone2015influence}\cite{morone2016collective} for the target. In this paper, the new algorithm is proposed for reconstructing collapsed complex network in order to find most influential nodes. Compared with the traditional algorithms, the new method is able to achieve the better performance in terms of robustness and speed. 
 	
-	This solution paper is organized as follows. In Section 2, DataCastle Master Competition background describes the target of this solution paper. In Section 3, several traditional algorithms are used to investigate the performance of 8 competition datasets as comparative algorithms. In Section 4, the suggested Collective Influence with optimal percolation is applied to get the advanced performance. The new implementation by c++ of CI , named ComplexCi , is also introduced. In Section 5, new purposed reconstructing algorithm is verified on 8 datesets in performance. Lastly, the conclusion of this competition is provided with outlook. All the code in this paper can be found at the link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub} \cite{zhfkt2017887989}
+	This solution paper is organized as follows. In Section 2, DataCastle Master Competition background describes the target of this solution paper. In Section 3, several traditional algorithms are used to investigate the performance of 8 competition datasets as comparative algorithms. In Section 4, the suggested Collective Influence with optimal percolation is applied to get the advanced performance. The new implementation by c++ of CI , named ComplexCi , is also introduced. In Section 5, new proposed reconstructing algorithm is verified on 8 datesets in performance. Lastly, the conclusion of this competition is provided with outlook. All the code in this paper can be found at the link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub} \cite{zhfkt2017887989}
 
 
 
@@ -228,7 +230,7 @@
 	
 	\subsection{Degree}		
 
-	Historically first and conceptually simplest is degree centrality, which is defined as the number of links incident upon a node . i.e. the number of ties that a node has \cite{wikiCentrality}. The nodes are ranked by degree, and sequentially removed starting from the node of highest degree. The concept of High Degree Adaptive (HDA) is purposed in the \cite{morone2015influence} as a better strategy which is a slightly different from the original Degree algorithm. Degree of the remaining nodes in the adaptive version will be recomputed after each node removal. HDA is used here to find the most influential nodes in the complex networks. Robustness value after applying HDA on 8 competition datasets is shown in the table \ref{tab:table5}
+	Historically first and conceptually simplest is degree centrality, which is defined as the number of links incident upon a node . i.e. the number of ties that a node has \cite{wikiCentrality}. The nodes are ranked by degree, and sequentially removed starting from the node of highest degree. The concept of High Degree Adaptive (HDA) is proposed in the \cite{morone2015influence} as a better strategy which is a slightly different from the original Degree algorithm. Degree of the remaining nodes in the adaptive version will be recomputed after each node removal. HDA is used here to find the most influential nodes in the complex networks. Robustness value after applying HDA on 8 competition datasets is shown in the table \ref{tab:table5}
 	
 
 		
@@ -302,7 +304,7 @@
 	
 	\begin{enumerate}
 	\begin{item}
-		Compared with the initial CI purposed in \cite{morone2015influence}, CI\_HEAP boosts the algorithm by utilizing max-heap data structure for processing very efficiently the CI values. The computational complexity of CI will be O(Nlog N) when removing nodes one-by-one, made possible through an appropriate data structure to process CI. 
+		Compared with the initial CI proposed in \cite{morone2015influence}, CI\_HEAP boosts the algorithm by utilizing max-heap data structure for processing very efficiently the CI values. The computational complexity of CI will be O(Nlog N) when removing nodes one-by-one, made possible through an appropriate data structure to process CI. 
 		
 		My application ComplexCi uses red-black tree with STL (Standard Template Library) container SET as different data structure to store and update CI values. In the field of C++ programming , SET and MAP container in STL are usually implemented as red-black tree, which is a kind of self-balancing binary search tree. Average computational complexity of red-black tree in Searching, Inserting and Deleting are all O(log N). Compared with max-heap, though red-black tree doesn\textquotesingle t overcome performance in deleting and updating, red-black tree is still able to achieve O(Nlog N) in the overall computational complexity 
 	\end{item}
@@ -333,11 +335,11 @@
 		\end{algorithmic}
 		\end{algorithm}
 	
-		Here top 0.1\% qualified nodes are added back at each reinsertion. Let\textquotesingle s say, if we have 2000 nodes left, reinsertion will add back $0.1\%*2000 = 20$ nodes at each step until all nodes stay in the network again. Hence, we need to choose 20 nodes in the total 2000 candidates by the value $N_{min}$ in the $N_i$ array at each reinsertion . CI\_HEAP uses directly quick sort algorithm O(Nlog N) to sort all nodes and get the top ones. ComplexCi uses c++ internal STL \textit{introselect} algorithm (nth\_element) \cite{cppnthelement}\cite{wikiIntroselect} to pick up top N qualified nodes without sort algorithm, which just uses O(N). Because we don\textquotesingle t need to know the order of the $N_{min}$ array by using full sort and just need to know the top N qualified ones.
+		Here top 0.1\% qualified nodes are added back at each reinsertion. Let\textquotesingle s say, if we have 2000 nodes left, reinsertion will add back $0.1\%*2000 = 20$ nodes at each step until all nodes stay in the network again. Hence, we need to choose 20 nodes in the total 2000 candidates by the value $N_{min}$ in the $N_i$ array at each reinsertion . CI\_HEAP uses directly quick sort algorithm O(Nlog N) to sort all nodes and get the top ones. ComplexCi uses c++ internal STL \textit{introselect} algorithm (nth\_element) \cite{cppnthelement}\cite{wikiIntroselect} to pick up top N qualified nodes without sort algorithm, which just uses O(N). Since we don\textquotesingle t need to know the order of the $N_{min}$ array by using full sort and just need to know the top N qualified ones.
 		
 		Path Compression in \textit{Find} and \textit{Union} by \textit{Rank} are typically the techniques to optimize the performance of disjoint-set data structure\cite{wikiDisjointsetdatastructure}, which are also used here.
 		 
-		From the point of computational complexity, the original reinsertion in CI\_HEAP is $O((n+n)*n) \simeq O(2n^2) \simeq O(n^2)$, which means (label graph connected component indices in n nodes network + find which node is suitable to be reinserted among n nodes) * (repeat n times until all left nodes are consumed). New reinsertion algorithm in ComplexCi is $O((1+n*inverse\_aka(n)+inverse\_aka(n)) *n) \simeq O(1+n+1)*n \simeq O(n^2)$ , which means (no need to label again + search for which node is suitable to be reinserted among n nodes * use \textit{Find} operation of disjoint-set pre node + \textit{Union} the final node and reinsert it into the graph) * (repeat n times until all left nodes are consumed). Using both path compression and \textit{Union} by \textit{Rank} ensures that the amortized time per \textit{Find} and \textit{Union} operation is only $inverse\_aka(n)$ \cite{tarjan1979class}\cite{tarjan1984worst} , which is optimal, where $inverse\_aka(n)$ represents the inverse Ackermann function. This function has a value $inverse\_aka(n)<5$ for any very large value of n that can be written in this physical universe, so the disjoint-set operations take place in essentially constant time\cite{wikiDisjointsetdatastructure}. Compared with the original reinsertion in CI\_HEAP , though the complexity of disjoint-set reinsertion $O(n^2)$ is the same , the longest consuming time of labelling graph connected component indices is eliminated. The new algorithm just introduces the inverse Ackermann function, which is nearly constant time in exchange. There is another advantage of disjoint-set reinsertion that, we can know the number of nodes in the arbitrary connected component in real-time because disjoint-set data structure supports to record the \textit{Rank} value of each connected component. In the below experiment analysis, we can see that the disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP as well.
+		From the point of computational complexity, the original reinsertion in CI\_HEAP is $O((n+n)*n) \simeq O(2n^2) \simeq O(n^2)$, which means (label graph connected component indices in n nodes network + find which node is suitable to be reinserted among n nodes) * (repeat n times until all left nodes are consumed). New reinsertion algorithm in ComplexCi is $O((1+n*inverse\_aka(n)+inverse\_aka(n)) *n) \simeq O(1+n+1)*n \simeq O(n^2)$ , which means (no need to label again + search for which node is suitable to be reinserted among n nodes * use \textit{Find} operation of disjoint-set pre node + \textit{Union} the final node and reinsert it into the graph) * (repeat n times until all left nodes are consumed). Using both path compression and \textit{Union} by \textit{Rank} ensures that the amortized time per \textit{Find} and \textit{Union} operation is only $inverse\_aka(n)$ \cite{tarjan1979class}\cite{tarjan1984worst} , which is optimal, where $inverse\_aka(n)$ represents the inverse Ackermann function. This function has a value $inverse\_aka(n)<5$ for any very large value of n that can be written in this physical universe, so the disjoint-set operations take place in essentially constant time\cite{wikiDisjointsetdatastructure}. Compared with the original reinsertion in CI\_HEAP , though the complexity of disjoint-set reinsertion $O(n^2)$ is the same , the longest consuming time of labelling graph connected component indices is eliminated. The new algorithm just introduces the inverse Ackermann function, which is nearly constant time in exchange. There is another advantage of disjoint-set reinsertion that, we can know the number of nodes in the arbitrary connected component in real-time since disjoint-set data structure supports to record the \textit{Rank} value of each connected component. In the below experiment analysis, we can see that the disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP as well.
 
 
 	\end{item}
@@ -352,7 +354,7 @@
 
 	
 
-	Let\textquotesingle s give an example in figure \ref{fig:figure1} and \ref{fig:figure2}. For the network in the Figure \ref{fig:figure1}, I assume that ball radius is 1 and the next candidate removed node is $node_5$. Before the removal, CI value of $node_1$ is $((3-1)+(3-1))*(2-1)=4$. After removal in Figure \ref{fig:figure2}, it will be changed to $((2-1)+(2-1))*(2-1)=2$. However, if we follow the saying of decreasing simply by the amount $k − 1$ for the ball radius $l + 1$ (here is 2), CI value of node 1 will be $4-(k-1)=4-(2-1)=3$ . I think \cite{morone2016collective} made this mistake because they might assume there is only one shortest path from $l + 1$ node to the removed node. In fact, from the example we can see that such assumption is not correct, there are 2 shortest paths from $node_1$ to $node 5$ ($node_1$ ,$node_2$ ,$node_5$ and $node_1$ ,$node_3$ ,$node_5$). Fortunately, after scanning their provided code CI\_HEAP, I find that they didn\textquotesingle t use this concept in their implementation and still calculated the CI value of $l + 1$ node in the original formula.
+	Let\textquotesingle s give an example in figure \ref{fig:figure1} and \ref{fig:figure2}. For the network in the Figure \ref{fig:figure1}, I assume that ball radius is 1 and the next candidate removed node is $node_5$. Before the removal, CI value of $node_1$ is $((3-1)+(3-1))*(2-1)=4$. After removal in Figure \ref{fig:figure2}, it will be changed to $((2-1)+(2-1))*(2-1)=2$. However, if we follow the saying of decreasing simply by the amount $k − 1$ for the ball radius $l + 1$ (here is 2), CI value of node 1 will be $4-(k-1)=4-(2-1)=3$ . I think \cite{morone2016collective} made this mistake since they might assume there is only one shortest path from $l + 1$ node to the removed node. In fact, from the example we can see that such assumption is not correct, there are 2 shortest paths from $node_1$ to $node 5$ ($node_1$ ,$node_2$ ,$node_5$ and $node_1$ ,$node_3$ ,$node_5$). Fortunately, after scanning their provided code CI\_HEAP, I find that they didn\textquotesingle t use this concept in their implementation and still calculated the CI value of $l + 1$ node in the original formula.
 	
 	\begin{figure}[htp]
 	\centering 
@@ -622,7 +624,7 @@
 		\end{item}	
 	
 		\begin{item}	
-			In table \ref{tab:table10} and table \ref{tab:table11}, \textit{reinsertion time excluding CI} become shorter according to the higher radius parameter because it will reach the start of reinsertion process earlier. We can also see that ComplexCI is better in speed in the process of reinsertion excluding running CI. It is the evidence that using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. 
+			In table \ref{tab:table10} and table \ref{tab:table11}, \textit{reinsertion time excluding CI} become shorter according to the higher radius parameter since it will reach the start of reinsertion process earlier. We can also see that ComplexCI is better in speed in the process of reinsertion excluding running CI. It is the evidence that using disjoint-set strategy in ComplexCi performs more efficiently than original reinsertion algorithm in CI\_HEAP. 
 		\end{item}	
 	
 		\begin{item}	
@@ -688,7 +690,7 @@
 	\end{table}
 	 
 	 
-	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that the reinsertion joining clusters of smallest sizes \textit{New-Reinsertion} is used. Because the \textit{Rank} technique is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time. Algorithm of \textit{New-Reinsertion} are shown in algorithm \ref{algo:algo2} and codes are based on the ComplexCi
+	 When implementing the algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion}, I just use nearly the same algorithm \ref{algo:algo1} by disjoint-set data structure mentioned above. The only difference from algorithm \ref{algo:algo1} is that the reinsertion joining clusters of smallest sizes \textit{New-Reinsertion} is used. Since the \textit{Rank} technique is used to optimize the performance of disjoint-set data structure, size information for each cluster is stored in the disjoint-set \textit{Rank} array, which can be easy to be picked up for determining the smallest one. With the help of disjoint-set data structure, fetching size for each cluster will be only $O(inverse\_aka(n))$ and nearly constant time. Algorithm of \textit{New-Reinsertion} are shown in algorithm \ref{algo:algo2} and codes are based on the ComplexCi
 	 
 	\begin{algorithm}[!htbp]
 	\caption{ The algorithm of modified reinsertion joining the clusters of smallest sizes \textit{New-Reinsertion} }
@@ -820,7 +822,7 @@
 		
 	\begin{item}
 			
-		\textit{multiplyKernel-Reinsertion}: There have already been 2 calculation kernels purposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiplyKernel-Reinsertion} is designed in algorithm \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Because model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
+		\textit{multiplyKernel-Reinsertion}: There have already been 2 calculation kernels proposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiplyKernel-Reinsertion} is designed in algorithm \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Since model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
 
 		\begin{algorithm}[!htbp]
 			\caption{ \textit{multiplyKernel-Reinsertion} to get the score $J_i$ representing the $node_i$. }
@@ -863,7 +865,7 @@
 				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
 				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &           \\ \hline \hline  
 				\textbf{Selective Score}                 & \textbf{0.2060}&\textbf{0.1700}&\textbf{0.3441}&\textbf{0.1115}&\textbf{0.0310}&\textbf{0.0040}&\textbf{0.0939}&\textbf{0.0367}&\textbf{0.9972}    \\ \hline 			
-				\textbf{Str-LOW-MULTI-TRAD-Score}                 & \textbf{0.2063}&\textbf{0.1700}&\textbf{0.3442}&\textbf{0.1115}&\textbf{0.0307}&\textbf{0.0036}&\textbf{0.0940}&\textbf{0.0368}&\textbf{0.9972}   \\ \hline 						
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score} \\  (lowerImportanceFirst \\ on Selective Score)}                 & \textbf{0.2063}&\textbf{0.1700}&\textbf{0.3442}&\textbf{0.1115}&\textbf{0.0307}&\textbf{0.0036}&\textbf{0.0940}&\textbf{0.0368}&\textbf{0.9972}   \\ \hline 						
 				
 			\end{tabular}
 			\begin{tablenotes}
@@ -909,27 +911,53 @@
 	 \subsection{Tune parameters}
 	 
 	 
-	 Next we need to tune input parameters to see whether we can get the better result. There are 2 adjustable numeric input parameters in ComplexCi, including \textit{biggestComponentEndThreshold} and \textit{updateBatch}
-	 
-	 
-	 
+	 Next we need to tune input parameters to see whether we can get the better result. Different parameters will lead to different robustness value finally. There are 2 adjustable numeric input parameters in ComplexCi, including \textit{biggestComponentEndThreshold} and \textit{updateBatch}. 
+	 	 
 	\begin{enumerate}
 	
 		\begin{item}	
-			\textit{biggestComponentEndThreshold}: Complex network collapses to the certain giant component ratio where the reinsert algorithm starts in the generic reinsertion framework (GRF). 
+			\textit{biggestComponentEndThreshold}: Complex network collapses to the certain giant component ratio where the reinsertion algorithm starts in the generic reinsertion framework (GRF). The current default \textit{biggestComponentEndThreshold} for \textit{Str-LOW-MULTI-TRAD-Score} is 0.01. If users set it to zero, it means reinsertion will start until there is no edge in the network in removal.
 		\end{item}
 		
 		\begin{item}	
-			\textit{updateBatch}: Batch size of deleted points per updating Collective Influence value. Users can determine the batch size of deleting nodes in ComplexCi per updating CI values when the Complex Network collapses
+			\textit{updateBatch}: Batch size of deleted points per updating Collective Influence value. Users can determine the batch size of deleting nodes in ComplexCi per updating CI values when the Complex Network collapses. The current default \textit{updateBatch} for \textit{Str-LOW-MULTI-TRAD-Score} is 1, which means that CI removes one node after updating CI values. It can be larger values and consumed time will be reduced.
 		\end{item}	
 
 	\end{enumerate}	
 	 
-	current updateBatch default is 1 / biggestComponentEndThreshold is 0.01 , 0 is all / grid search
-	 
-	 
-	 
-	 
+	The concept similar with Grid Search \cite{wikiHyperparameter} is used to tune the parameters. The formal way of Grid Search is to find the best parameters in the subset of Cartesian product space of 2 sets \textit{biggestComponentEndThreshold} and \textit{updateBatch}. Here I just determine which \textit{biggestComponentEndThreshold} is suitable first , and then enlarge \textit{updateBatch} to see whether the rough updating will have negative impact on the robustness.
+	
+	\begin{table}[!htbp]
+	\begin{adjustwidth}{-3cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Different \textit{biggestComponentEndThreshold} values in 0.0, 0.0001, 0.001, 0.01 and 0.1 on strategy \textit{Str-LOW-MULTI-TRAD-Score} to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets }
+			\label{tab:table15}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline		
+				
+				
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with 0.0}} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score                 & 0.2074          & 0.1725          & 0.3441          & 0.1193          & 0.0384         & 0.0392         & 0.0956         & 0.0497         & 1.0662         \\ \hline
+				time                             & 6469s           & 4762s           & 10320s          & 2993s           & 35680s         & 2657s          & 46928s         & 4772s          & 46928s         \\ \hline
+				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
+				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				
+				
+				
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}		
+
+
+	Table \ref{tab:table15} shows the result of different \textit{biggestComponentEndThreshold} values in 0.0, 0.0001, 0.001, 0.01 and 0.1 on strategy \textit{Str-LOW-MULTI-TRAD-Score}.
+	
+
 
 
 
