@@ -135,11 +135,12 @@
 	%\end{adjustwidth}
 	\end{table}
 
+	For the experiments in this paper, datasets are all verified on the default 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz) in 8G memory if I don't mention especially.
+
 
 	\section{Experiments on the traditional algorithms}
 	
-	In this section, tradition algorithms of Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, Degree\cite{wikiCentrality} and PageRank\cite{wikiPageRank}  will be verified on 8 Datacastle datasets . Datasets are all verified on the default 4-core CPU machine (Intel Xeon E5-2667v4 Broadwell 3.2 GHz) in 8G memory if I don't mention especially.
-
+	In this section, tradition algorithms of Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, Degree\cite{wikiCentrality} and PageRank\cite{wikiPageRank}  will be verified on 8 Datacastle datasets. 
 
 	\subsection{Betweenness}
 	
@@ -615,7 +616,7 @@
 		\end{item}			
 		
 		\begin{item}
-			Consuming time is increasing according to the higher ball radius in both ComplexCi and CI\_HEAP. After debugging and profiling, I find that most time-consuming section is to find the nodes in the scope of defined radius by using breadth-first-search (BFS) algorithm. We can not ignore BFS complexity if ball radius is high. It is also interesting that running time of CI algorithm is not related with the node number. The largest network real2 performs the quickest to complete among all datasets and the smallest real3 performs the slowest as the radius 2.
+			Consuming time is increasing according to the higher ball radius in both ComplexCi and CI\_HEAP. After debugging and profiling, I find that most time-consuming section is to find the nodes in the scope of defined radius by using breadth-first-search (BFS) algorithm. We can not ignore BFS complexity if ball radius is high. It is also interesting that running time of CI algorithm is not related with the node number. The largest network real2 performs the quickest to accomplish among all datasets and the smallest real3 performs the slowest as the radius 2.
 		\end{item}
 
 	
@@ -822,10 +823,10 @@
 		
 	\begin{item}
 			
-		\textit{multiplyKernel-Reinsertion}: There have already been 2 calculation kernels proposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiplyKernel-Reinsertion} is designed in algorithm \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Since model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
+		\textit{multiply-Reinsertion}: There have already been 2 calculation kernels proposed above, \textit{Traditional-Reinsertion} kernel in algorithm \ref{algo:algo4} and \textit{New-Reinsertion} kernel in algorithm \ref{algo:algo5}. Here the new \textit{multiply-Reinsertion} is designed in algorithm \ref{algo:algo6} , which multiplies $M_i$ of \textit{Traditional-Reinsertion} by $S_i$ of \textit{New-Reinsertion}. Since model3 is the only network dataset rejecting the better performance in \textit{New-Reinsertion}, I would like to adopt the combination of \textit{New-Reinsertion} and \textit{Traditional-Reinsertion} to see whether it will be more general to all datasets.
 
 		\begin{algorithm}[!htbp]
-			\caption{ \textit{multiplyKernel-Reinsertion} to get the score $J_i$ representing the $node_i$. }
+			\caption{ \textit{multiply-Reinsertion} to get the score $J_i$ representing the $node_i$. }
 			\label{algo:algo6}
 			\begin{algorithmic}[1]
 				\State Get the connected component size information $rank[UC_{i}]$ from \textit{rank} array due to the fact that each cluster size is stored in it. Sum up all $rank[UC_{i1}]$, $rank[UC_{i2}]$, ... $rank[UC_{im}]$ as $S_i$ to get the clusters sizes which will be joined if the $node_i$ is reinserted.
@@ -834,7 +835,7 @@
 			\end{algorithmic}
 		\end{algorithm}	
 		
-		In table \ref{tab:table14}, \textit{str-multiplyKernel-Reinsertion} with strict internal parameters of \textit{multiplyKernel-Reinsertion} shows that , though it will get total score 1.0115 better than \textit{Str-New-Reinsertion} 1.0148, the model3 network is still nearly the same and no further progress as in the \textit{Str-Traditional-Reinsertion}. Selective value in choosing better score of \textit{Str-Traditional-Reinsertion} and \textit{str-multiplyKernel-Reinsertion} is 0.9972 and it is just slightly better than 0.9993 in \ref{tab:table13}
+		In table \ref{tab:table14}, \textit{str-multiply-Reinsertion} with strict internal parameters of \textit{multiply-Reinsertion} shows that , though it will get total score 1.0115 better than \textit{Str-New-Reinsertion} 1.0148, the model3 network is still nearly the same and no further progress as in the \textit{Str-Traditional-Reinsertion}. Selective value in choosing better score of \textit{Str-Traditional-Reinsertion} and \textit{str-multiply-Reinsertion} is 0.9972 and it is just slightly better than 0.9993 in \ref{tab:table13}
 
 	\end{item}
 		
@@ -847,7 +848,7 @@
 		\begin{adjustwidth}{-3cm}{}		
 		\begin{threeparttable}		
 			\centering
-			\caption{Using CI in radius 2 of \textit{multiplyKernel-Reinsertion} after applying more strict internal parameters to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets , compared with \textit{Str-Trad-Reinsertion}. Statistic of \textit{Str-LOW-MULTI-TRAD-Score} is applied with \textit{lowerImportanceFirst} on \textit{Selective Score} }
+			\caption{Using CI in radius 2 of \textit{multiply-Reinsertion} after applying more strict internal parameters to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets , compared with \textit{Str-Trad-Reinsertion}. Statistic of \textit{Str-LOW-MULTI-TRAD-Score} is applied with \textit{lowerImportanceFirst} on \textit{Selective Score} }
 			\label{tab:table14}
 			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 				\hline		
@@ -859,7 +860,7 @@
 				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
 				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
 				
-				\textbf{Str-multiplyKernel-Reinsertion}         & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				\textbf{Str-multiply-Reinsertion}         & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
 				Robustness score                 & \textbf{0.2060}&\textbf{0.1700}&0.3585&\textbf{0.1115}&\textbf{0.0310}&\textbf{0.0040}&\textbf{0.0939}&\textbf{0.0367}&1.0115         \\ \hline
 				time                             & 6545s&4825s&9818s&2970s&34518s&2662s&46859s&4871s&46859s         \\ \hline
 				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
@@ -888,7 +889,7 @@
 				
 				\State Model3 using \textit{Trad-Reinsertion} kernel in algorithm \ref{algo:algo4} with strict internal parameters \textit{Str-Trad-Reinsertion}
 				
-				\State All the other datasets except Model3 using \textit{multiplyKernel-Reinsertion} kernel in algorithm \ref{algo:algo6}  with strict internal parameters \textit{str-multiplyKernel-Reinsertion}
+				\State All the other datasets except Model3 using \textit{multiply-Reinsertion} kernel in algorithm \ref{algo:algo6}  with strict internal parameters \textit{str-multiply-Reinsertion}
 				
 				\State Strategy \textit{lowerImportanceFirst}
 				
@@ -1015,7 +1016,7 @@
 	\end{table}	
 
 
-	Table \ref{tab:table16} contains the different attempts on the different \textit{updateBatch} values in 100, 200, 300, 400, 500, 1000 with \textit{biggestComponentEndThreshold} 0.001 in deleting the network nodes in batch. It shows that when using the parameters of \textit{updateBatch} with 200 and \textit{biggestComponentEndThreshold} 0.001, the robustness value \textbf{0.9929} can be achieved, which is also described in algorithm \ref{algo:algo8} and the \textit{bestResult} in this competition .
+	Table \ref{tab:table16} contains the different attempts on the various \textit{updateBatch} values in 100, 200, 300, 400, 500, 1000 with \textit{biggestComponentEndThreshold} 0.001 in deleting the network nodes in batch. It shows that when using the parameters of \textit{updateBatch} with 200 and \textit{biggestComponentEndThreshold} 0.001, the robustness value \textbf{0.9929} can be achieved, which is also described in algorithm \ref{algo:algo8} and the \textit{bestResult} in this competition. Enlarging the \textit{updateBatch} will not have negative impact on the result , even the result of robustness will become better and the speed will boost.
 
 	\begin{algorithm}[!htbp]
 		\caption{ Summary of algorithms used in \textit{bestResult} }
@@ -1032,7 +1033,7 @@
 	\end{algorithm}
 
 
-	Considered that \textit{bestResult} is still using 10172s nearly 3 hours, \textit{quickResult} is developed to generate the output of datasets in fast mode after removing some techniques. Compared with the best result, it does not spend too much time and the result is still competitive and surprisingly in the scale of million datasets. The \textit{quickResult} in algorithm \ref{algo:algo9} can achieve 1.0287 in the metric of Robustness in table \ref{tab:table17}. It just spends less than 5 minutes.
+	Considered that \textit{bestResult} is still using 10172s nearly 3 hours, \textit{quickResult} is developed to generate the output of datasets in fast mode after the removal of some techniques. Compared with the best result, it does not spend too much time and the result is still competitive and surprisingly in the scale of million datasets. The \textit{quickResult} in algorithm \ref{algo:algo9} can achieve 1.0287 in the metric of Robustness in table \ref{tab:table17}. It just spends less than 5 minutes.
 	
 	
 	\begin{algorithm}[!htbp]
@@ -1046,7 +1047,7 @@
 			
 			\State Model3 using \textit{Trad-Reinsertion} kernel in algorithm \ref{algo:algo4}.
 			
-			\State All the other datasets except Model3 using \textit{multiplyKernel-Reinsertion} kernel in algorithm \ref{algo:algo6}
+			\State All the other datasets except Model3 using \textit{multiply-Reinsertion} kernel in algorithm \ref{algo:algo6}
 			
 		\end{algorithmic}
 	\end{algorithm}
@@ -1078,11 +1079,16 @@
 	\end{table}		
 	
 	
+	\section{Conclusions}
 	
+	Compared with traditional algorithms including Betweenness, Closeness, PageRank, Degree and Collective Influence, the new proposed Generic reinsertion framework (GRF) with kernel \textit{New-Reinsertion} of finding most influential nodes is able to achieve the better performance on the 8 competition datasets in terms of robustness and speed. HDA disabling CI with \textit{New-Reinsertion} is able to get the pretty better result 1.0403 in 4 minutes, compared with the previous best result 1.0701 in nearly 12 hours using \textit{Traditional-Reinsertion} when radius of CI is 2. It means reinsertion plays more important role than CI for getting better robustness.
 	
+	The new implementation of the popular algorithm CI by C++ is introduced as well, named ComplexCi at github link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub}. ComplexCi and CI\_HEAP are able to get the nearly same result in the same internal parameter and ComplexCI can get better speed than CI\_HEAP in high radius.	In the future, the parallel version of CI can be tried since calculation of updating CI value of each node is not related with each other.
 	
+	For the DataCastle Master Competition , multiple other techniques, including strict internal parameters, \textit{multiply-Reinsertion} and strategy \textit{lowerImportanceFirst},  are used to get the better robustness score and high rank on the leaderboard of competition based on the Generic reinsertion framework. The robustness score and consumed time of Betweenness, Closeness, PageRank, Degree (HDA), Collective Influence (radius=2), HDA with \textit{New-Reinsertion}, \textit{quickResult} and \textit{bestResult} are shown in the figure \ref{fig:figure3}.
 	
-
+	The new proposed Generic reinsertion framework can achieve different goals according to the various kernels. In fact, for this issue in the Competition, kernel \textit{New-Reinsertion} , \textit{Trad-Reinsertion} and \textit{multiply-Reinsertion} are all to recover the network as late as possible. In the future, more kernels need to be investigated to see whether the framework can be applied on the other issues. For example, we can develop the new kernel in order to recover the attacked and collapsed network as soon as possible, such the case that terrorist attacks on transportation or electric power supply. 
+	
 
 
 	
