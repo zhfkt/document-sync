@@ -876,37 +876,27 @@
 	\end{adjustwidth}	
 	\end{table}			
 		
-	 Currently we get the outstanding \textit{Str-LOW-MULTI-TRAD-Score} 0.9972 in table \ref{tab:table14}, which utilizes 
+	 Currently we get the outstanding \textit{Str-LOW-MULTI-TRAD-Score} 0.9972 in table \ref{tab:table14}, which utilizes the techniques described in the algorithm \ref{algo:algo7}
 
-	\begin{enumerate}
-		
-		\begin{item}	
-			Collective Influence in radius 2
-		\end{item}
-		
-		\begin{item}	
-			Generic reinsertion framework (GRF) in algorithm \ref{algo:algo3}. 
-		\end{item}	
-		
-		\begin{item}
-			Model3 using \textit{Trad-Reinsertion} kernel in algorithm \ref{algo:algo4} with strict internal parameters \textit{Str-Trad-Reinsertion}
-		\end{item}
-		
-		
-		\begin{item}
-			All the other datasets except Model3 using \textit{multiplyKernel-Reinsertion} kernel in algorithm \ref{algo:algo6}  with strict internal parameters \textit{str-multiplyKernel-Reinsertion}
-		\end{item}	
-		
-		\begin{item}
-			Strategy \textit{lowerImportanceFirst}
-		\end{item}	
-		
-	\end{enumerate}	
-	
-	
-	
-	All techniques in this paper are all completed to be descried detailedly.		 
-	 
+		\begin{algorithm}[!htbp]
+			\caption{ Summary of algorithms used in \textit{Str-LOW-MULTI-TRAD-Score} }
+			\label{algo:algo7}
+			\begin{algorithmic}[1]
+				\State Collective Influence in radius 2.
+				
+				\State Generic reinsertion framework (GRF) in algorithm \ref{algo:algo3}.
+				
+				\State Model3 using \textit{Trad-Reinsertion} kernel in algorithm \ref{algo:algo4} with strict internal parameters \textit{Str-Trad-Reinsertion}
+				
+				\State All the other datasets except Model3 using \textit{multiplyKernel-Reinsertion} kernel in algorithm \ref{algo:algo6}  with strict internal parameters \textit{str-multiplyKernel-Reinsertion}
+				
+				\State Strategy \textit{lowerImportanceFirst}
+				
+				
+			\end{algorithmic}
+		\end{algorithm}
+
+
 	 
 	 \subsection{Tune parameters}
 	 
@@ -925,7 +915,7 @@
 
 	\end{enumerate}	
 	 
-	The concept similar with Grid Search \cite{wikiHyperparameter} is used to tune the parameters. The formal way of Grid Search is to find the best parameters in the subset of Cartesian product space of 2 sets \textit{biggestComponentEndThreshold} and \textit{updateBatch}. Here I just determine which \textit{biggestComponentEndThreshold} is suitable first , and then enlarge \textit{updateBatch} to see whether the rough updating will have negative impact on the robustness.
+	The concept similar with Grid Search \cite{wikiHyperparameter} is used to tune the parameters. The formal way of Grid Search is to find the best parameters in the subset of Cartesian product space of 2 sets \textit{biggestComponentEndThreshold} and \textit{updateBatch}. Here I just determine which \textit{biggestComponentEndThreshold} is suitable first , and then enlarge \textit{updateBatch} to see whether the rough updating will have negative impact on the robustness. Table \ref{tab:table15} shows the result of different \textit{biggestComponentEndThreshold} values in 0.0, 0.0001, 0.001, 0.01 and 0.1 on strategy \textit{Str-LOW-MULTI-TRAD-Score} and 0.001 is the best result among all. 
 	
 	\begin{table}[!htbp]
 	\begin{adjustwidth}{-3cm}{}		
@@ -938,10 +928,31 @@
 				
 				
 				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with 0.0}} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
-				Robustness score                 & 0.2074          & 0.1725          & 0.3441          & 0.1193          & 0.0384         & 0.0392         & 0.0956         & 0.0497         & 1.0662         \\ \hline
-				time                             & 6469s           & 4762s           & 10320s          & 2993s           & 35680s         & 2657s          & 46928s         & 4772s          & 46928s         \\ \hline
-				minPoint                         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
-				algoEndsPoint                    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				
+				Robustness score & 0.2062          & 0.1698          & 0.3488          & 0.1101          & 0.0307         & 0.0021         & 0.0942         & 0.0404         & 1.0024         \\ \hline
+				time             & 35310s          & 33122s          & 34847s          & 30200s          & 83939s         & 53483s         & 67617s         & 27982s         & 83939s         \\ \hline
+				minPoint         & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				algoEndsPoint    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with 0.0001}}        & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2057          & 0.1696          & 0.3441          & 0.1100          & 0.0307         & 0.0026         & 0.0936         & 0.0371         & 0.9934         \\ \hline
+				time             & 9298s           & 6634s           & 13625s          & 4395s           & 63645s         & 6135s          & 50818s         & 15119s         & 63645s         \\ \hline
+				minPoint         & 313599          & 273199          & 532399          & 193999          & 697999         & 341799         & 112399         & 469199         &                \\ \hline
+				algoEndsPoint    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with 0.001}}  &\textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2061          & 0.1699          & 0.3440          & 0.1107          & 0.0306         & 0.0026         & 0.0935         & 0.0358         & 0.9932         \\ \hline
+				time             & 7565s           & 5640s           & 11772s          & 3533s           & 36134s         & 4113s          & 47758s         & 5868s          & 47758s         \\ \hline
+				minPoint         & 296999          & 256399          & 520999          & 170199          & 183999         & 279399         & 83399          & 180799         &                \\ \hline
+				algoEndsPoint    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with 0.01}} &\textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2063          & 0.1700          & 0.3442          & 0.1115          & 0.0307         & 0.0036         & 0.0940         & 0.0368         & 0.9972         \\ \hline
+				time             & 7015s           & 5156s           & 11236s          & 3176s           & 34970s         & 2922s          & 47242s         & 5052s          & 47242s         \\ \hline
+				minPoint         & 291599          & 251399          & 517999          & 163199          & 165799         & 242599         & 81199          & 162999         &                \\ \hline
+				algoEndsPoint    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with 0.1}} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2070          & 0.1711          & 0.3442          & 0.1136          & 0.0354         & 0.0138         & 0.0957         & 0.0500         & 1.0309         \\ \hline
+				time             & 6749s           & 4966s           & 10961s          & 2992s           & 33338s         & 2286s          & 46772s         & 4448s          & 46772s         \\ \hline
+				minPoint         & 290399          & 249999          & 516399          & 161599          & 140399         & 216999         & 79599          & 146999         &                \\ \hline
+				algoEndsPoint    & 686650          & 695091          & 772235          & 690491          & 766671         & 1355969        & 189648         & 509904         &                \\ \hline
 				
 				
 				
@@ -954,14 +965,126 @@
 	\end{adjustwidth}	
 	\end{table}		
 
+	\begin{table}[!htbp]
+	\begin{adjustwidth}{-3cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{Different \textit{updateBatch} values in 100, 200, 300, 400, 500, 1000 on strategy \textit{Str-LOW-MULTI-TRAD-Score} with \textit{biggestComponentEndThreshold} 0.001 to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets }
+			\label{tab:table16}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline		
+				
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with updateBatch 100}}        & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2062          & 0.1698          & 0.3441          & 0.1107          & 0.0309         & 0.0034         & 0.0940         & 0.0357         & 0.9947         \\ \hline
+				time             & 6446s           & 5477s           & 10370s          & 3307s           & 10182s         & 4453s          & 5414s          & 5216s          & 10370s         \\ \hline
+				minPoint         & 299500          & 256500          & 519900          & 170700          & 187700         & 297900         & 84300          & 183100         &                \\ \hline
+				algoEndsPoint    & 686223          & 694800          & 772187          & 690422          & 764700         & 1538060        & 191433         & 507500         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with updateBatch 200} \\ (\textbf{bestResult})}        & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2060          & 0.1695          & 0.3439          & 0.1107          & 0.0307         & 0.0023         & 0.0940         & 0.0357         & \textbf{0.9929}         \\ \hline
+				time             & 6071s           & 5148s           & 10172s          & 3258s           & 9603s          & 4006s          & 4841s          & 5071s          & 10172s         \\ \hline
+				minPoint         & 297800          & 257200          & 520000          & 170400          & 190200         & 283200         & 84400          & 182400         &                \\ \hline
+				algoEndsPoint    & 686221          & 694610          & 772456          & 690224          & 764706         & 1543450        & 190855         & 507144         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with updateBatch 300}} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2060          & 0.1698          & 0.3440          & 0.1106          & 0.0309         & 0.0038         & 0.0939         & 0.0357         & 0.9947         \\ \hline
+				time             & 6034s           & 5124s           & 9976s           & 3179s           & 9360s          & 4356s          & 4644s          & 5079s          & 9976s          \\ \hline
+				minPoint         & 298500          & 258600          & 520800          & 171600          & 187800         & 299400         & 85200          & 187500         &                \\ \hline
+				algoEndsPoint    & 686169          & 694570          & 772463          & 690158          & 764373         & 1545791        & 190325         & 506474         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with updateBatch 400}} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2058          & 0.1695          & 0.3442          & 0.1107          & 0.0309         & 0.0027         & 0.0939         & 0.0360         & 0.9938         \\ \hline
+				time             & 5753s           & 4882s           & 9780s           & 3002s           & 9134s          & 3948s          & 4404s          & 4771s          & 9780s          \\ \hline
+				minPoint         & 297600          & 256800          & 521200          & 170800          & 191200         & 284400         & 84400          & 182400         &                \\ \hline
+				algoEndsPoint    & 685600          & 694470          & 772233          & 690056          & 764384         & 1546938        & 189881         & 506202         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with updateBatch 500}} & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2060          & 0.1699          & 0.3443          & 0.1108          & 0.0307         & 0.0036         & 0.0939         & 0.0361         & 0.9953         \\ \hline
+				time             & 5755s           & 4891s           & 9659s           & 3004s           & 9132s          & 3852s          & 4387s          & 4880s          & 9659s          \\ \hline
+				minPoint         & 297500          & 257500          & 521000          & 171000          & 190500         & 284500         & 84500          & 186000         &                \\ \hline
+				algoEndsPoint    & 685552          & 694100          & 772502          & 690048          & 763537         & 1547683        & 189335         & 505491         &                \\ \hline
+				\tabincell{c}{\textbf{Str-LOW-MULTI-TRAD-Score}\\ \textbf{with updateBatch 1000}}& \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2060          & 0.1698          & 0.3442          & 0.1107          & 0.0307         & 0.0033         & 0.0939         & 0.0355         & 0.9942         \\ \hline
+				time             & 5626s           & 4719s           & 9513s           & 3038s           & 9069s          & 3789s          & 4411s          & 4994s          & 9513s          \\ \hline
+				minPoint         & 298000          & 257000          & 524000          & 172000          & 192000         & 280000         & 85000          & 193000         &                \\ \hline
+				algoEndsPoint    & 684669          & 693400          & 772256          & 689631          & 761750         & 1548036        & 188210         & 504280         &                \\ \hline
+				
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}	
 
-	Table \ref{tab:table15} shows the result of different \textit{biggestComponentEndThreshold} values in 0.0, 0.0001, 0.001, 0.01 and 0.1 on strategy \textit{Str-LOW-MULTI-TRAD-Score}.
+
+	Table \ref{tab:table16} contains the different attempts on the different \textit{updateBatch} values in 100, 200, 300, 400, 500, 1000 with \textit{biggestComponentEndThreshold} 0.001 in deleting the network nodes in batch. It shows that when using the parameters of \textit{updateBatch} with 200 and \textit{biggestComponentEndThreshold} 0.001, the robustness value \textbf{0.9929} can be achieved, which is also described in algorithm \ref{algo:algo8} and the \textit{bestResult} in this competition .
+
+	\begin{algorithm}[!htbp]
+		\caption{ Summary of algorithms used in \textit{bestResult} }
+		\label{algo:algo8}
+		\begin{algorithmic}[1]
+			\State Set \textit{biggestComponentEndThreshold} to 0.001
+			
+			\State Set \textit{updateBatch} to 200.
+			
+			\State Use \textit{Str-LOW-MULTI-TRAD-Score} in algorithm \ref{algo:algo7}
+						
+			
+		\end{algorithmic}
+	\end{algorithm}
+
+
+	Considered that \textit{bestResult} is still using 10172s nearly 3 hours, \textit{quickResult} is developed to generate the output of datasets in fast mode after removing some techniques. Compared with the best result, it does not spend too much time and the result is still competitive and surprisingly in the scale of million datasets. The \textit{quickResult} in algorithm \ref{algo:algo9} can achieve 1.0287 in the metric of Robustness in table \ref{tab:table17}. It just spends less than 5 minutes.
+	
+	
+	\begin{algorithm}[!htbp]
+		\caption{ Summary of algorithms used in \textit{quickResult} }
+		\label{algo:algo9}
+		\begin{algorithmic}[1]
+			
+			\State High Degree Adaptive (HDA).
+
+			\State Generic reinsertion framework (GRF) in algorithm \ref{algo:algo3}.
+			
+			\State Model3 using \textit{Trad-Reinsertion} kernel in algorithm \ref{algo:algo4}.
+			
+			\State All the other datasets except Model3 using \textit{multiplyKernel-Reinsertion} kernel in algorithm \ref{algo:algo6}
+			
+		\end{algorithmic}
+	\end{algorithm}
+	
+	
+	
+	\begin{table}[!htbp]
+	\begin{adjustwidth}{-1cm}{}		
+		\begin{threeparttable}		
+			\centering
+			\caption{ Use \textit{quickResult} to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets }
+			\label{tab:table17}
+			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+				\hline		
+				
+				\textit{quickResult}        & \textbf{model1} & \textbf{model2} & \textbf{model3} & \textbf{model4} & \textbf{real1} & \textbf{real2} & \textbf{real3} & \textbf{real4} & \textbf{total} \\ \hline
+				Robustness score & 0.2100          & 0.1744          & 0.3488          & 0.1175          & 0.0315         & 0.0069         & 0.0978         & 0.0417         & 1.0288         \\ \hline
+				time             & 150s            & 127s            & 215s            & 94s             & 163s           & 102s           & 161s           & 134s           & 215s           \\ \hline
+				minPoint         & 322306          & 281709          & 538703          & 200339          & 220297         & 508819         & 93807          & 171159         &                \\ \hline
+				algoEndsPoint    & 686223          & 694800          & 772187          & 690422          & 764700         & 1538060        & 191433         & 507500         &                \\ \hline
+
+			\end{tabular}
+			\begin{tablenotes}
+				\small
+				\item\textit{ 8 datasets are all verified in concurrent. The time doesn\textquotesingle t cover IO read/write from/to disk.}
+			\end{tablenotes}			
+		\end{threeparttable}
+	\end{adjustwidth}	
+	\end{table}		
+	
+	
+	
+	
+	
 	
 
 
 
-
-	 
 	
 	%----------------------------------------------------------------------------------------
 	%	BIBLIOGRAPHY
