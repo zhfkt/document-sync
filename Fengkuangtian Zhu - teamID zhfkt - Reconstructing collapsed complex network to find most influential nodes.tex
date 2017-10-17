@@ -100,13 +100,13 @@
 	
 	There are several traditional algorithms such as Betweenness\cite{wikiBetweennesscentrality}, Closeness\cite{wikiClosenesscentrality}, PageRank\cite{wikiPageRank}, Degree\cite{wikiCentrality} and Collective Influence\cite{morone2015influence}\cite{morone2016collective} for the target. In this paper, the new algorithm is proposed for reconstructing collapsed complex network in order to find most influential nodes. Compared with the traditional algorithms, the new method is able to achieve the better performance in terms of robustness and speed. 
 	
-	This solution paper is organized as follows. In Section 2, DataCastle Master Competition background describes the target of this solution paper. In Section 3, several traditional algorithms are used to investigate the performance of 8 competition datasets as comparative algorithms. In Section 4, the suggested Collective Influence with optimal percolation is applied to get the advanced performance. The new implementation by c++ of CI , named ComplexCi , is also introduced. In Section 5, new proposed reconstructing algorithm is verified on 8 datesets in performance. Lastly, the conclusion of this competition is provided with outlook. All the code in this paper can be found at the link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub} \cite{zhfkt2017887989}
+	This solution paper is organized as follows. In Section 2, DataCastle Master Competition background describes the target of this solution paper. In Section 3, several traditional algorithms are used to investigate the performance of 8 competition datasets as comparative algorithms. In Section 4, the suggested Collective Influence with optimal percolation is applied to get the advanced performance. The new implementation by C++ of CI , named ComplexCi , is also introduced. In Section 5, new proposed reconstructing algorithm is developed , and then verified on 8 datesets in performance in the experiments section. Lastly, the conclusions of new algorithms and this competition are provided with outlook. All the code in this paper can be found at the link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub} \cite{zhfkt2017887989}
 
 
 
 	\section{DataCastle Master Competition background}
 	
-	From \cite{masterCompetitionbackground} , the detail of the Master Competition background held by DataCastle is described below:
+	From \cite{masterCompetitionbackground} , the detaild of Master Competition background held by DataCastle are described below:
 	
 	\begin{itquote}
 		
@@ -284,7 +284,7 @@
 	
 	\subsection{Implementations of Algorithm using CI\_HEAP and ComplexCi}		
 	
-	In order to verify the CI on competition dataset results, I utilize 2 implementations of the algorithm. One is provided by the original paper written in c language \cite{ciheapccode}, named CI\_HEAP. The other is newly developed in c++ implementation by myself \cite{zhfkt2017887989} \cite{zhfktgithub}, named ComplexCi . 
+	In order to verify the CI on competition dataset results, I utilize 2 implementations of the algorithm. One is provided by the original paper written in c language \cite{ciheapccode}, named CI\_HEAP. The other is newly developed in C++ implementation by myself \cite{zhfkt2017887989} \cite{zhfktgithub}, named ComplexCi . 
 	
 	CI\_HEAP and ComplexCi share the same following internal parameters:
 	
@@ -336,7 +336,7 @@
 		\end{algorithmic}
 		\end{algorithm}
 	
-		Here top 0.1\% qualified nodes are added back at each reinsertion. Let\textquotesingle s say, if we have 2000 nodes left, reinsertion will add back $0.1\%*2000 = 20$ nodes at each step until all nodes stay in the network again. Hence, we need to choose 20 nodes in the total 2000 candidates by the value $N_{min}$ in the $N_i$ array at each reinsertion . CI\_HEAP uses directly quick sort algorithm O(Nlog N) to sort all nodes and get the top ones. ComplexCi uses c++ internal STL \textit{introselect} algorithm (nth\_element) \cite{cppnthelement}\cite{wikiIntroselect} to pick up top N qualified nodes without sort algorithm, which just uses O(N). Since we don\textquotesingle t need to know the order of the $N_{min}$ array by using full sort and just need to know the top N qualified ones.
+		Here top 0.1\% qualified nodes are added back at each reinsertion. Let\textquotesingle s say, if we have 2000 nodes left, reinsertion will add back $0.1\%*2000 = 20$ nodes at each step until all nodes stay in the network again. Hence, we need to choose 20 nodes in the total 2000 candidates by the value $N_{min}$ in the $N_i$ array at each reinsertion . CI\_HEAP uses directly quick sort algorithm O(Nlog N) to sort all nodes and get the top ones. ComplexCi uses C++ internal STL \textit{introselect} algorithm (nth\_element) \cite{cppnthelement}\cite{wikiIntroselect} to pick up top N qualified nodes without sort algorithm, which just uses O(N). Since we don\textquotesingle t need to know the order of the $N_{min}$ array by using full sort and just need to know the top N qualified ones.
 		
 		Path Compression in \textit{Find} and \textit{Union} by \textit{Rank} are typically the techniques to optimize the performance of disjoint-set data structure\cite{wikiDisjointsetdatastructure}, which are also used here.
 		 
@@ -373,7 +373,7 @@
 	
 	\subsection{Experiments on CI}				
 	
-	The following part of this section describes the experiments of CI on the ComplexCi and CI\_HEAP. Radius of 0,1,2 as input parameters in table \ref{tab:table6} and table \ref{tab:table7} are used to verify the performance on 8 competition datasets both for my c++ implementation ComplexCi and original c code CI\_HEAP. The \textit{minPoint} and \textit{algoEndsPoint} row are also involved into the result to evaluate the performance as brief reference. \textit{minPoint} means the number of removed nodes when ratio of giant component is invoking reinsertion on 1\%. \textit{algoEndsPoint} means the number of removed nodes when ratio of giant component is on 0. \textit{a.k.a.} there is no edge left in the network.
+	The following part of this section describes the experiments of CI on the ComplexCi and CI\_HEAP. Radius of 0,1,2 as input parameters in table \ref{tab:table6} and table \ref{tab:table7} are used to verify the performance on 8 competition datasets both for my C++ implementation ComplexCi and original c code CI\_HEAP. The \textit{minPoint} and \textit{algoEndsPoint} row are also involved into the result to evaluate the performance as brief reference. \textit{minPoint} means the number of removed nodes when ratio of giant component is invoking reinsertion on 1\%. \textit{algoEndsPoint} means the number of removed nodes when ratio of giant component is on 0. \textit{a.k.a.} there is no edge left in the network.
 	
 		
 	
@@ -1085,13 +1085,13 @@
 	
 	The new implementation of the popular algorithm CI by C++ is introduced as well, named ComplexCi at github link https://github.com/zhfkt/ComplexCi \cite{zhfktgithub}. ComplexCi and CI\_HEAP are able to get the nearly same result in the same internal parameter and ComplexCI can get better speed than CI\_HEAP in high radius. In the future, the parallel version of CI can be tried to boost more since calculation of updating CI value of each node is not related with each other.
 	
-	For the DataCastle Master Competition , multiple other techniques, including strict internal parameters, \textit{multiply-Reinsertion} and strategy \textit{lowerImportanceFirst},  are used to get the better robustness score and higher rank on the leaderboard of competition based on the Generic reinsertion framework. \textit{bestResult} can achieve 0.9929 within 3 hours and \textit{quickResult} will get lower 1.0288 in fast mode within 5 minutes. The robustness score and consumed time of Betweenness, Closeness, PageRank, Degree (HDA), Collective Influence (radius=2), HDA with \textit{New-Reinsertion}, \textit{quickResult} and \textit{bestResult} are shown in the figure \ref{fig:figure3} and table \ref{tab:table18}.
+	For the DataCastle Master Competition , multiple other techniques, including strict internal parameters, \textit{multiply-Reinsertion} and strategy \textit{lowerImportanceFirst}, are used to get the better robustness score and higher rank on the leaderboard of competition , based on the Generic reinsertion framework. The proposed \textit{bestResult} can achieve 0.9929 within 3 hours and \textit{quickResult} can get lower 1.0288 in fast mode within 5 minutes. The robustness score and consumed time of Betweenness, Closeness, PageRank, Degree (HDA), Collective Influence (radius=2), HDA with \textit{New-Reinsertion}, \textit{quickResult} and \textit{bestResult} are shown in the figure \ref{fig:figure3} and table \ref{tab:table18}.
 	
 	\begin{table}[!htbp]	
 	\small\begin{adjustwidth}{-2.5cm}{}		
 		\begin{threeparttable}		
 			\centering
-			\caption{ Use \textit{quickResult} to get robustness value, time, minPoint and algoEndsPoint on 8 competition datasets }
+			\caption{ Robustness score and time on 8 datasets using various algorithm }
 			\label{tab:table18}
 			\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
 				\hline		
